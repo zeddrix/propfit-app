@@ -1,16 +1,47 @@
 # PropFit - Rental Property Management Calculator
 
-A modern, responsive rental property management calculator built with SvelteKit, TypeScript, and TailwindCSS. This application helps property managers track tenant payments, expenses, and shareholder distributions for monthly rental operations.
+A modern, responsive rental property management calculator built with SvelteKit 5, TypeScript, and TailwindCSS. This application helps property managers track tenant payments, expenses, and shareholder distributions for monthly rental operations.
+
+## ✅ Implementation Status
+
+### ✅ Completed Features
+
+All 12 requested tasks have been successfully implemented using Test-Driven Development (TDD) approach:
+
+1. **✅ Editable Tenant Names** - Tenant names are displayed in editable input fields with automatic persistence
+2. **✅ Separate Unit Tables** - Unit 1 (Franz) and Unit 3 (other tenants) have separate tables with clear headings
+3. **✅ 1000-Step Amount Input** - Number inputs use step="1000" for quick increment/decrement by ₱1,000
+4. **✅ Cursor Pointer on Buttons** - All interactive elements show pointer cursor on hover
+5. **✅ Mark All Paid Button** - One-click button to mark all tenants as paid with today's date
+6. **✅ Add/Remove Tenants with Undo** - Dynamic tenant management for Unit 3 with 5-second undo functionality
+7. **✅ LocalStorage Integration** - All data changes persist automatically with browser compatibility checks
+8. **✅ Unit 3 Dynamic Rent Calculation** - Total ₱5,000 rent splits equally among Unit 3 tenants automatically
+9. **✅ Development Performance Optimized** - Vite configuration optimized for better HMR and build performance
+10. **✅ Lint Errors Resolved** - All ESLint and Prettier issues fixed
+11. **✅ Documentation Updated** - README and implementation files updated to reflect current features
+12. **✅ TDD Workflow Documented** - Comprehensive development guidelines and testing approach documented
 
 ## ✨ Features
 
 ### Core Functionality
 
-- **Monthly Rental Payment Tracking** - Track payments from multiple tenants
+- **Monthly Rental Payment Tracking** - Track payments from multiple tenants across different units
+- **Editable Tenant Names** - Modify tenant names directly in the table
+- **Separate Unit Tables** - Unit 1 (2 pax) and Unit 3 (10 pax) separated for better organization
+- **Dynamic Rent Calculation** - Unit 3 automatic rent distribution with ₱5,000 minimum
 - **Expense Management** - Manage internet, utilities, maintenance, and other expenses
 - **Automatic Calculations** - Real-time balance calculations and payment status
 - **Profit Distribution** - Automatic shareholder distribution based on ownership percentages
 - **Payment Status Tracking** - Visual status indicators (Paid, Pending, Advance Payment)
+
+### Enhanced User Experience
+
+- **Quick Payment Input** - 1,000 step increments for amount paid fields
+- **Add/Remove Tenants** - Dynamically manage Unit 3 tenants with undo functionality
+- **Mark All Paid** - One-click button to mark all tenants as paid for the month
+- **Toast Notifications** - Undo functionality when removing tenants
+- **Persistent Data** - LocalStorage integration for data persistence across sessions
+- **Cursor Pointer** - Intuitive button interactions throughout the app
 
 ### Export Features
 
@@ -22,10 +53,12 @@ A modern, responsive rental property management calculator built with SvelteKit,
 ### Technical Features
 
 - **No Data Persistence** - Fresh start each session, perfect for monthly calculations
+- **LocalStorage Integration** - Optional data persistence with browser compatibility checks
 - **Responsive Design** - Works on desktop, tablet, and mobile devices
 - **TypeScript Support** - Full type safety throughout the application
-- **Component Architecture** - Modular, reusable Svelte components
+- **Component Architecture** - Modular, reusable Svelte components with Svelte 5 Runes
 - **Comprehensive Testing** - Unit tests for all calculation logic
+- **SSR Compatible** - Server-side rendering support for better performance
 
 ## 🚀 Getting Started
 
@@ -108,18 +141,21 @@ pnpm run deploy
 
 The application comes pre-configured with:
 
-- **6 Tenants**: Franz (Unit 1), Ging Bagro, Ryzza Maglanque, Shane Mikaela Galang, Shiky Cagaitan, Lyn Villanueva (all Unit 3)
+- **Unit 1 (2 pax)**: Franz (studio type 1) - ₱2,000 rent
+- **Unit 3 (10 pax)**: Ging Bagro, Ryzza Maglanque, Shane Mikaela Galang, Shiky Cagaitan, Lyn Villanueva - Dynamic rent calculation (₱5,000 minimum total)
 - **Default Expenses**: Internet (₱1,585.54), Water, Electricity, Maintenance, Other
 - **Shareholders**: Zedd (30%), Mommy (35%), Maru (35%)
 
 ### Monthly Workflow
 
 1. **Select Month** - Choose the reporting month using the month selector
-2. **Enter Payments** - Input tenant payments and payment dates
-3. **Record Expenses** - Add monthly expenses for utilities and maintenance
-4. **Review Summary** - Check total collections, expenses, and net income
-5. **Export Reports** - Download PDF or Excel reports for record keeping
-6. **Reset for Next Month** - Use reset button to start fresh for next month
+2. **Enter Payments** - Input tenant payments with 1,000 step increments and payment dates
+3. **Manage Tenants** - Add/remove Unit 3 tenants as needed with undo functionality
+4. **Mark All Paid** - Use quick button when all tenants have paid for the month
+5. **Record Expenses** - Add monthly expenses for utilities and maintenance
+6. **Review Summary** - Check total collections, expenses, and net income
+7. **Export Reports** - Download PDF or Excel reports for record keeping
+8. **Auto-Save** - Data automatically persists in localStorage
 
 ### Key Calculations
 
@@ -130,7 +166,7 @@ The application comes pre-configured with:
 
 ## 🛠️ Technology Stack
 
-- **Framework**: SvelteKit
+- **Framework**: SvelteKit 5 with Runes Mode
 - **Language**: TypeScript
 - **Styling**: TailwindCSS v4
 - **Testing**: Vitest + Testing Library
@@ -138,11 +174,12 @@ The application comes pre-configured with:
 - **Icons**: Lucide Svelte
 - **PDF Generation**: jsPDF + jsPDF-AutoTable
 - **Excel Export**: SheetJS (xlsx)
+- **State Management**: Svelte Stores with LocalStorage persistence
 - **Deployment**: GitHub Pages (Static Adapter)
 
 ## 📁 Project Structure
 
-```
+```plaintext
 propfit-app/
 ├── src/
 │   ├── lib/
@@ -215,11 +252,19 @@ If you encounter any issues or have questions:
 
 Future enhancements under consideration:
 
-- [ ] Data persistence options (localStorage, cloud storage)
+- [x] **Editable tenant names** - Completed
+- [x] **Separate unit tables** - Completed
+- [x] **Add/remove tenant functionality** - Completed
+- [x] **LocalStorage data persistence** - Completed
+- [x] **Dynamic Unit 3 rent calculation** - Completed
+- [x] **Quick payment input (1000 steps)** - Completed
+- [x] **Mark all paid button** - Completed
+- [x] **Undo functionality for removed tenants** - Completed
 - [ ] Multi-property support
 - [ ] Advanced reporting features
 - [ ] Tenant communication features
 - [ ] Mobile app version
+- [ ] Cloud storage integration
 
 ---
 

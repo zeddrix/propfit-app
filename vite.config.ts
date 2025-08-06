@@ -13,5 +13,23 @@ export default defineConfig({
 		},
 		environment: 'jsdom',
 		setupFiles: ['./vitest-setup-client.ts']
+	},
+	build: {
+		// Optimize chunk size warning limit
+		chunkSizeWarningLimit: 1000
+	},
+	optimizeDeps: {
+		// Pre-bundle these dependencies for faster dev server startup
+		include: ['jspdf', 'jspdf-autotable', 'xlsx', 'lucide-svelte']
+	},
+	server: {
+		// Improve HMR performance
+		hmr: {
+			overlay: true
+		},
+		// Enable better caching
+		fs: {
+			strict: false
+		}
 	}
 });

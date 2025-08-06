@@ -1,0 +1,16 @@
+
+> propfit-app@0.0.1 build /Users/zeddrix/Documents/propfit-app
+> vite build
+
+vite v7.0.6 building SSR bundle for production...
+transforming...
+✓ 3678 modules transformed.
+✗ Build failed in 10.42s
+error during build:
+"jspdf" cannot be included in manualChunks because it is resolved as an external module by the "external" option or plugins.
+    at getRollupError (file:///Users/zeddrix/Documents/propfit-app/node_modules/.pnpm/rollup@4.46.2/node_modules/rollup/dist/es/shared/parseAst.js:401:41)
+    at error (file:///Users/zeddrix/Documents/propfit-app/node_modules/.pnpm/rollup@4.46.2/node_modules/rollup/dist/es/shared/parseAst.js:397:42)
+    at ModuleLoader.loadEntryModule (file:///Users/zeddrix/Documents/propfit-app/node_modules/.pnpm/rollup@4.46.2/node_modules/rollup/dist/es/shared/node-entry.js:21517:20)
+    at async Promise.all (index 0)
+    at async Promise.all (index 0)
+ ELIFECYCLE  Command failed with exit code 1.

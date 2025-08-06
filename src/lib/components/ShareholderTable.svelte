@@ -28,7 +28,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each distributionData as shareholder}
+			{#each distributionData as shareholder (shareholder.name)}
 				<tr class="bg-blue-50 hover:bg-blue-100">
 					<td class="border border-gray-300 px-4 py-2 font-medium">{shareholder.name}</td>
 					<td class="border border-gray-300 px-4 py-2 text-center">{shareholder.percentage}%</td>

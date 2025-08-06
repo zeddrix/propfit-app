@@ -44,7 +44,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each Object.keys(expenseLabels) as expenseKey}
+			{#each Object.keys(expenseLabels) as expenseKey (expenseKey)}
 				{@const key = expenseKey as keyof Expenses}
 				<tr class="hover:bg-gray-50">
 					<td class="border border-gray-300 px-4 py-2">{expenseLabels[key]}</td>

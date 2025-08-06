@@ -9,9 +9,10 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+# Temporarily disable concurrency to ensure clean deployments
+# concurrency:
+#   group: "pages"
+#   cancel-in-progress: false
 
 jobs:
   build_site:
@@ -31,6 +32,9 @@ jobs:
           node-version: 20
           cache: pnpm
 
+      - name: Clear build cache
+        run: rm -rf .svelte-kit build node_modules/.cache
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -41,6 +45,15 @@ jobs:
         env:
           BASE_PATH: '/propfit-app'
         run: pnpm build
+
+      - name: List build output
+        run: |
+          echo "Build directory contents:"
+          ls -la build/
+          echo "Assets directory:"
+          ls -la build/_app/immutable/assets/ || echo "Assets directory not found"
+          echo "Entry directory:"
+          ls -la build/_app/immutable/entry/ || echo "Entry directory not found"
 
       - name: Setup Pages
         uses: actions/configure-pages@v5

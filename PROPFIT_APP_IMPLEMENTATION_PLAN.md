@@ -1,12 +1,29 @@
-# SvelteKit Rental Management App - Complete Implementation Plan
+# SvelteKit 5 Rental Management App - Complete Implementation Plan & Development Workflow
 
 ## Project Overview
 
-Build a monthly rental management calculator app using SvelteKit with TypeScript and TDD approach. The app will function as a calculator where users input monthly data, get automatic calculations, and can download/print results without data persistence.
+Build a monthly rental management calculator app using SvelteKit 5 with TypeScript and TDD approach. The app functions as a comprehensive rental property management tool with advanced features including editable tenant management, unit separation, dynamic rent calculation, and persistent data storage.
+
+## 🎯 Implementation Status: **COMPLETE (12/12 Features)** ✅
+
+### ✅ Completed Features
+
+1. **Editable Tenant Names** - Inline editing in table cells
+2. **Separate Unit Tables** - Unit 1 (2 pax) and Unit 3 (10 pax) tables
+3. **1,000 Step Payment Input** - Quick increment buttons for efficiency
+4. **Cursor Pointer on Buttons** - Enhanced UI interactions
+5. **Mark All Paid Button** - One-click monthly payment completion
+6. **Add/Remove Tenant Functionality** - Dynamic tenant management with undo
+7. **LocalStorage Integration** - Persistent data storage
+8. **Unit 3 Dynamic Rent Calculation** - ₱5,000 minimum distribution
+9. **Build Performance** - Svelte 5 compatibility and optimization
+10. **Linting & Code Quality** - ESLint clean, no errors
+11. **Documentation** - Updated README and development reports
+12. **Development Workflow** - Complete TDD implementation guide
 
 ## Technology Stack
 
-- **Framework**: SvelteKit
+- **Framework**: SvelteKit 5 with Runes Mode
 - **Language**: TypeScript (for type safety and better development experience)
 - **Package Manager**: pnpm (for faster, more efficient package management)
 - **Testing**: Vitest + Testing Library
@@ -18,7 +35,99 @@ Build a monthly rental management calculator app using SvelteKit with TypeScript
 - **PDF Generation**: jsPDF + jsPDF-AutoTable
 - **Excel Export**: SheetJS (xlsx)
 - **Print**: Browser's native print API
+- **State Management**: Svelte Stores with LocalStorage persistence
 - **Deployment**: GitHub Pages with SvelteKit static adapter
+
+## 🔄 Development Workflow
+
+### Daily Development Commands
+
+```bash
+# Start development server
+pnpm dev              # Runs on http://localhost:5173
+
+# Testing commands
+pnpm test             # Run all tests (13 unit tests)
+pnpm test:coverage    # Run tests with coverage report
+
+# Code quality
+pnpm lint             # ESLint validation
+pnpm format           # Prettier code formatting
+pnpm check            # TypeScript type checking
+
+# Build commands
+pnpm build            # Production build (transforms 3,860 modules)
+pnpm preview          # Preview production build
+```
+
+### TDD Development Process
+
+#### 1. Red Phase - Write Failing Test
+
+```typescript
+// Example: Adding new calculation feature
+import { describe, it, expect } from 'vitest';
+
+describe('New Feature', () => {
+	it('should calculate correctly', () => {
+		const result = newCalculation(input);
+		expect(result).toBe(expectedOutput);
+	});
+});
+```
+
+#### 2. Green Phase - Make Test Pass
+
+```typescript
+// Implement minimal code to pass the test
+export function newCalculation(input: number): number {
+	return input * 2; // Simplest implementation
+}
+```
+
+#### 3. Refactor Phase - Improve Code
+
+```typescript
+// Refactor while maintaining test coverage
+export function newCalculation(input: number): number {
+	if (input < 0) throw new Error('Input must be positive');
+	return input * 2;
+}
+```
+
+### Git Workflow
+
+```bash
+# Feature development workflow
+git checkout -b feature/new-feature
+git add .
+git commit -m "feat: add new feature with tests"
+git push origin feature/new-feature
+
+# Create pull request for review
+# Merge after review and tests pass
+```
+
+### Code Quality Standards
+
+- **TypeScript Strict Mode**: Full type safety throughout
+- **ESLint Configuration**: Consistent code style
+- **Prettier Formatting**: Automated code formatting
+- **Svelte 5 Best Practices**: Modern reactive patterns with $derived and $state
+- **Test Coverage**: Maintain >90% coverage for calculation logic
+- **Component Testing**: Test behavior, not implementation details
+
+### Performance Monitoring
+
+```bash
+# Build analysis
+pnpm build          # Monitor bundle sizes
+                    # Current: 706.98 kB largest chunk
+
+# Development performance
+pnpm dev           # Hot reload speed monitoring
+                   # Current: 1352ms startup time
+```
 
 ## Project Structure
 

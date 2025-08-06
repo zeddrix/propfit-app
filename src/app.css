@@ -24,6 +24,7 @@
 	padding: theme('spacing.2') theme('spacing.4');
 	border-radius: theme('borderRadius.lg');
 	transition: background-color 0.2s;
+	cursor: pointer;
 }
 
 .btn-primary:hover {
@@ -36,6 +37,7 @@
 	padding: theme('spacing.2') theme('spacing.4');
 	border-radius: theme('borderRadius.lg');
 	transition: background-color 0.2s;
+	cursor: pointer;
 }
 
 .btn-secondary:hover {

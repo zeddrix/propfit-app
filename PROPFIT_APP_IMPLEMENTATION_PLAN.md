@@ -1,9 +1,11 @@
 # SvelteKit Rental Management App - Complete Implementation Plan
 
 ## Project Overview
+
 Build a monthly rental management calculator app using SvelteKit with TypeScript and TDD approach. The app will function as a calculator where users input monthly data, get automatic calculations, and can download/print results without data persistence.
 
 ## Technology Stack
+
 - **Framework**: SvelteKit
 - **Language**: TypeScript (for type safety and better development experience)
 - **Package Manager**: pnpm (for faster, more efficient package management)
@@ -19,6 +21,7 @@ Build a monthly rental management calculator app using SvelteKit with TypeScript
 - **Deployment**: GitHub Pages with SvelteKit static adapter
 
 ## Project Structure
+
 ```
 propfit-app/
 ├── src/
@@ -67,6 +70,7 @@ propfit-app/
 #### 1.1 Initialize SvelteKit Project ✅
 
 The project was already initialized with:
+
 - ✅ SvelteKit with TypeScript support
 - ✅ ESLint and Prettier configured
 - ✅ Vitest for testing
@@ -120,6 +124,7 @@ import '../app.css';
 ```
 
 #### 1.4 Configure Static Adapter for GitHub Pages
+
 ```bash
 # Update svelte.config.js
 cat > svelte.config.js << 'EOL'
@@ -146,6 +151,7 @@ EOL
 ```
 
 #### 1.5 Configure Testing
+
 ```bash
 # Update vitest.config.js
 cat > vitest.config.js << 'EOL'
@@ -178,17 +184,20 @@ EOL
 **✅ COMPLETED ITEMS:**
 
 #### 2.1 TypeScript Types ✅
+
 - ✅ Created comprehensive type definitions in `src/lib/types/index.ts`
 - ✅ Types for Tenant, Expenses, Shareholder, TenantBalance, Summary
 - ✅ Full type safety throughout the application
 
-#### 2.2 Calculation Logic ✅  
+#### 2.2 Calculation Logic ✅
+
 - ✅ Created `src/lib/utils/calculations.ts` with full TypeScript support
 - ✅ Functions: calculateTenantBalance, calculateTotalCollected, calculateNetIncome, calculateShareholderDistribution, formatCurrency
 - ✅ Comprehensive unit tests in `src/lib/utils/calculations.test.ts`
 - ✅ All tests passing (10/10 tests)
 
 #### 2.3 Data Stores ✅
+
 - ✅ Created `src/lib/stores/rentalData.ts` with TypeScript
 - ✅ Reactive stores for tenants, expenses, shareholders, currentMonth, monthlyNotes
 - ✅ Reset functionality implemented
@@ -197,6 +206,7 @@ EOL
 ### Phase 3: Svelte Components (✅ COMPLETED)
 
 #### 3.1 Core Components ✅
+
 - ✅ `TenantTable.svelte` - Fully functional with TypeScript
 - ✅ `ExpenseTable.svelte` - TypeScript event handling
 - ✅ `SummarySection.svelte` - Real-time calculations with $derived
@@ -204,11 +214,13 @@ EOL
 - ✅ `ActionButtons.svelte` - Export and reset functionality
 
 #### 3.2 Export Utilities ✅
+
 - ✅ `exportPdf.ts` - jsPDF integration with TypeScript types
 - ✅ `exportExcel.ts` - XLSX integration with proper typing
 - ✅ Both utilities handle all data sections (tenants, expenses, summary, shareholders)
 
 #### 3.3 Main Application ✅
+
 - ✅ `src/routes/+page.svelte` - Complete TypeScript implementation
 - ✅ Full component integration
 - ✅ Event handling with proper TypeScript types
@@ -217,12 +229,14 @@ EOL
 ### Phase 4: Configuration & Testing (✅ MOSTLY COMPLETED)
 
 #### 4.1 Development Setup ✅
-- ✅ TailwindCSS v4 properly configured 
+
+- ✅ TailwindCSS v4 properly configured
 - ✅ CSS imported in layout file
 - ✅ Development server running on localhost:5175
 - ✅ All TypeScript compilation successful
 
 #### 4.2 Testing ✅
+
 - ✅ Vitest properly configured for TypeScript
 - ✅ All calculation tests passing
 - ✅ Test-driven development approach followed
@@ -230,21 +244,25 @@ EOL
 ### ⚠️ REMAINING TASKS
 
 #### Static Build Configuration ✅ COMPLETED
+
 - ✅ Fixed static adapter configuration for GitHub Pages
 - ✅ Added proper prerender settings
 - ✅ Tested production build successfully
 
 #### Deployment Preparation ✅ COMPLETED
+
 - ✅ Created GitHub Actions workflow
 - ✅ Added gh-pages deployment scripts
 - ✅ Updated package.json scripts
 
 #### Testing ✅ MOSTLY COMPLETED
+
 - ✅ Core calculation tests passing (9/9 tests)
 - ✅ All business logic verified
 - ⚠️ Integration tests need PostCSS configuration fix
 
 #### Final Steps ✅ COMPLETED
+
 - ✅ PostCSS configuration updated for TailwindCSS v4
 - ✅ All dependencies installed
 - ✅ Development server running successfully
@@ -252,6 +270,7 @@ EOL
 - ✅ GitHub Pages deployment ready
 
 #### 2.1 Create Initial Test for Calculations
+
 ```bash
 # Create tests directory structure
 mkdir -p tests/unit tests/integration
@@ -259,11 +278,11 @@ mkdir -p tests/unit tests/integration
 # Write first test for calculation logic
 cat > tests/unit/calculations.test.js << 'EOL'
 import { describe, it, expect } from 'vitest';
-import { 
-  calculateTenantBalance, 
-  calculateTotalCollected, 
-  calculateNetIncome, 
-  calculateShareholderDistribution 
+import {
+  calculateTenantBalance,
+  calculateTotalCollected,
+  calculateNetIncome,
+  calculateShareholderDistribution
 } from '$lib/utils/calculations.js';
 
 describe('Rental Calculations', () => {
@@ -309,7 +328,7 @@ describe('Rental Calculations', () => {
         { name: 'Mommy', percentage: 35 },
         { name: 'Maru', percentage: 35 }
       ];
-      
+
       const result = calculateShareholderDistribution(netIncome, shareholders);
       expect(result).toEqual([
         { name: 'Zedd', percentage: 30, amount: 900 },
@@ -323,6 +342,7 @@ EOL
 ```
 
 #### 2.2 Implement Calculation Logic
+
 ```bash
 # Create utils directory and calculation functions
 mkdir -p src/lib/utils
@@ -337,7 +357,7 @@ cat > src/lib/utils/calculations.js << 'EOL'
 export function calculateTenantBalance(rent, payment) {
   const balance = rent - payment;
   let status;
-  
+
   if (balance > 0) {
     status = 'Pending';
   } else if (balance === 0) {
@@ -345,7 +365,7 @@ export function calculateTenantBalance(rent, payment) {
   } else {
     status = 'Advance Payment';
   }
-  
+
   return { balance, status };
 }
 
@@ -403,6 +423,7 @@ pnpm test
 ### Phase 3: Svelte Stores for State Management
 
 #### 2.4 Create Rental Data Store
+
 ```bash
 mkdir -p src/lib/stores
 
@@ -455,11 +476,13 @@ EOL
 ### Phase 4: Svelte Components (TDD Approach)
 
 **⚠️ TESTING FIRST: Follow unit-testing-rules.md strictly**
+
 - Write component tests BEFORE implementing components
 - Test behavior and user interactions, not implementation details
 - Use real stores and data when possible, minimal mocking
 
 #### 2.5 Create Component Tests
+
 ```bash
 cat > tests/unit/TenantTable.test.js << 'EOL'
 import { describe, it, expect } from 'vitest';
@@ -473,7 +496,7 @@ describe('TenantTable', () => {
 
   it('renders tenant information correctly', () => {
     const { getByText } = render(TenantTable, { tenants: mockTenants });
-    
+
     expect(getByText('Franz')).toBeTruthy();
     expect(getByText('Unit 1')).toBeTruthy();
     expect(getByText('₱2,000.00')).toBeTruthy();
@@ -481,13 +504,13 @@ describe('TenantTable', () => {
 
   it('calculates balance correctly', () => {
     const { getByText } = render(TenantTable, { tenants: mockTenants });
-    
+
     expect(getByText('₱1,000.00')).toBeTruthy(); // Balance should be 2000 - 1000 = 1000
   });
 
   it('shows correct status based on balance', () => {
     const { getByText } = render(TenantTable, { tenants: mockTenants });
-    
+
     expect(getByText('Pending')).toBeTruthy();
   });
 });
@@ -495,6 +518,7 @@ EOL
 ```
 
 #### 2.6 Create TenantTable Component
+
 ```bash
 mkdir -p src/lib/components
 
@@ -502,15 +526,15 @@ cat > src/lib/components/TenantTable.svelte << 'EOL'
 <script>
   import { createEventDispatcher } from 'svelte';
   import { calculateTenantBalance, formatCurrency } from '$lib/utils/calculations.js';
-  
+
   export let tenants = [];
-  
+
   const dispatch = createEventDispatcher();
-  
+
   function updatePayment(tenantId, field, value) {
     dispatch('updateTenant', { tenantId, field, value });
   }
-  
+
   function getTenantCalculation(tenant) {
     return calculateTenantBalance(tenant.rent, tenant.payment);
   }
@@ -535,9 +559,9 @@ cat > src/lib/components/TenantTable.svelte << 'EOL'
           <td class="border border-gray-300 px-4 py-2 font-medium">{tenant.name}</td>
           <td class="border border-gray-300 px-4 py-2 text-right">{formatCurrency(tenant.rent)}</td>
           <td class="border border-gray-300 px-4 py-2">
-            <input 
-              type="number" 
-              class="table-input text-right" 
+            <input
+              type="number"
+              class="table-input text-right"
               value={tenant.payment}
               min="0"
               step="0.01"
@@ -545,9 +569,9 @@ cat > src/lib/components/TenantTable.svelte << 'EOL'
             />
           </td>
           <td class="border border-gray-300 px-4 py-2">
-            <input 
-              type="date" 
-              class="table-input" 
+            <input
+              type="date"
+              class="table-input"
               value={tenant.paymentDate}
               on:input={(e) => updatePayment(tenant.id, 'paymentDate', e.target.value)}
             />
@@ -557,8 +581,8 @@ cat > src/lib/components/TenantTable.svelte << 'EOL'
           </td>
           <td class="border border-gray-300 px-4 py-2">
             <span class="px-2 py-1 rounded-full text-xs font-medium
-              {calculation.status === 'Paid' ? 'bg-green-100 text-green-800' : 
-                calculation.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' : 
+              {calculation.status === 'Paid' ? 'bg-green-100 text-green-800' :
+                calculation.status === 'Pending' ? 'bg-yellow-100 text-yellow-800' :
                 'bg-blue-100 text-blue-800'}">
               {calculation.status}
             </span>
@@ -572,20 +596,21 @@ EOL
 ```
 
 #### 2.7 Create ExpenseTable Component
+
 ```bash
 cat > src/lib/components/ExpenseTable.svelte << 'EOL'
 <script>
   import { createEventDispatcher } from 'svelte';
   import { formatCurrency } from '$lib/utils/calculations.js';
-  
+
   export let expenses = {};
-  
+
   const dispatch = createEventDispatcher();
-  
+
   function updateExpense(field, value) {
     dispatch('updateExpense', { field, value });
   }
-  
+
   const expenseLabels = {
     internet: 'Internet',
     water: 'Water',
@@ -612,9 +637,9 @@ cat > src/lib/components/ExpenseTable.svelte << 'EOL'
         <tr class="hover:bg-gray-50">
           <td class="border border-gray-300 px-4 py-2">{expenseLabels[expenseKey]}</td>
           <td class="border border-gray-300 px-4 py-2">
-            <input 
-              type="number" 
-              class="table-input text-right" 
+            <input
+              type="number"
+              class="table-input text-right"
               value={expenses[expenseKey] || 0}
               min="0"
               step="0.01"
@@ -622,9 +647,9 @@ cat > src/lib/components/ExpenseTable.svelte << 'EOL'
             />
           </td>
           <td class="border border-gray-300 px-4 py-2">
-            <input 
-              type="text" 
-              class="table-input" 
+            <input
+              type="text"
+              class="table-input"
               placeholder="Add notes..."
             />
           </td>
@@ -637,14 +662,15 @@ EOL
 ```
 
 #### 2.8 Create SummarySection Component
+
 ```bash
 cat > src/lib/components/SummarySection.svelte << 'EOL'
 <script>
   import { formatCurrency, calculateTotalCollected, calculateNetIncome } from '$lib/utils/calculations.js';
-  
+
   export let tenants = [];
   export let expenses = {};
-  
+
   $: totalExpected = tenants.reduce((sum, tenant) => sum + tenant.rent, 0);
   $: totalCollected = calculateTotalCollected(tenants.map(t => t.payment));
   $: outstandingBalance = totalExpected - totalCollected;
@@ -654,7 +680,7 @@ cat > src/lib/components/SummarySection.svelte << 'EOL'
 
 <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-green-500">
   <h3 class="text-lg font-bold text-gray-800 mb-4">Monthly Summary</h3>
-  
+
   <table class="w-full">
     <tbody>
       <tr class="border-b">
@@ -684,14 +710,15 @@ EOL
 ```
 
 #### 2.9 Create ShareholderTable Component
+
 ```bash
 cat > src/lib/components/ShareholderTable.svelte << 'EOL'
 <script>
   import { formatCurrency, calculateShareholderDistribution } from '$lib/utils/calculations.js';
-  
+
   export let shareholders = [];
   export let netIncome = 0;
-  
+
   $: distributionData = calculateShareholderDistribution(netIncome, shareholders);
 </script>
 
@@ -737,6 +764,7 @@ EOL
 ### Phase 5: Export Functionality
 
 #### 2.10 Create PDF Export Utility
+
 ```bash
 cat > src/lib/utils/exportPdf.js << 'EOL'
 import jsPDF from 'jspdf';
@@ -745,21 +773,21 @@ import { formatCurrency, calculateTenantBalance, calculateTotalCollected, calcul
 
 export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes = '') {
   const doc = new jsPDF();
-  
+
   // Header
   doc.setFontSize(18);
   doc.text('Rental Property Management Report', 105, 20, { align: 'center' });
-  
+
   doc.setFontSize(14);
   doc.text(`Month: ${new Date(currentMonth + '-01').toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`, 105, 30, { align: 'center' });
-  
+
   let yPosition = 45;
-  
+
   // Tenant Payment Table
   doc.setFontSize(12);
   doc.text('Tenant Payments', 20, yPosition);
   yPosition += 5;
-  
+
   const tenantData = tenants.map(tenant => {
     const calc = calculateTenantBalance(tenant.rent, tenant.payment);
     return [
@@ -771,7 +799,7 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
       calc.status
     ];
   });
-  
+
   doc.autoTable({
     startY: yPosition,
     head: [['Tenant', 'Rent', 'Paid', 'Date', 'Balance', 'Status']],
@@ -779,18 +807,18 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
     theme: 'grid',
     headStyles: { fillColor: [76, 175, 80] }
   });
-  
+
   yPosition = doc.lastAutoTable.finalY + 15;
-  
+
   // Expenses Table
   doc.text('Monthly Expenses', 20, yPosition);
   yPosition += 5;
-  
+
   const expenseData = Object.entries(expenses).map(([key, value]) => [
     key.charAt(0).toUpperCase() + key.slice(1),
     formatCurrency(value)
   ]);
-  
+
   doc.autoTable({
     startY: yPosition,
     head: [['Expense Type', 'Amount']],
@@ -798,15 +826,15 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
     theme: 'grid',
     headStyles: { fillColor: [255, 152, 0] }
   });
-  
+
   yPosition = doc.lastAutoTable.finalY + 15;
-  
+
   // Summary
   const totalCollected = calculateTotalCollected(tenants.map(t => t.payment));
   const totalExpected = tenants.reduce((sum, tenant) => sum + tenant.rent, 0);
   const netIncome = calculateNetIncome(totalCollected, expenses);
   const totalExpenses = Object.values(expenses).reduce((sum, expense) => sum + expense, 0);
-  
+
   const summaryData = [
     ['Total Expected Rent', formatCurrency(totalExpected)],
     ['Total Rent Collected', formatCurrency(totalCollected)],
@@ -814,10 +842,10 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
     ['Total Expenses', formatCurrency(totalExpenses)],
     ['Net Income for Distribution', formatCurrency(netIncome)]
   ];
-  
+
   doc.text('Monthly Summary', 20, yPosition);
   yPosition += 5;
-  
+
   doc.autoTable({
     startY: yPosition,
     head: [['Item', 'Amount']],
@@ -825,9 +853,9 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
     theme: 'grid',
     headStyles: { fillColor: [33, 150, 243] }
   });
-  
+
   yPosition = doc.lastAutoTable.finalY + 15;
-  
+
   // Shareholder Distribution
   const distributionData = calculateShareholderDistribution(netIncome, shareholders);
   const shareholderTableData = distributionData.map(shareholder => [
@@ -835,10 +863,10 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
     `${shareholder.percentage}%`,
     formatCurrency(shareholder.amount)
   ]);
-  
+
   doc.text('Shareholder Distribution', 20, yPosition);
   yPosition += 5;
-  
+
   doc.autoTable({
     startY: yPosition,
     head: [['Shareholder', 'Ownership %', 'Distribution Amount']],
@@ -846,17 +874,17 @@ export function exportToPdf(tenants, expenses, shareholders, currentMonth, notes
     theme: 'grid',
     headStyles: { fillColor: [156, 39, 176] }
   });
-  
+
   // Notes
   if (notes) {
     yPosition = doc.lastAutoTable.finalY + 15;
     doc.text('Notes:', 20, yPosition);
     yPosition += 5;
-    
+
     const splitNotes = doc.splitTextToSize(notes, 170);
     doc.text(splitNotes, 20, yPosition);
   }
-  
+
   // Save the PDF
   const fileName = `rental-report-${currentMonth}.pdf`;
   doc.save(fileName);
@@ -865,6 +893,7 @@ EOL
 ```
 
 #### 2.11 Create Excel Export Utility
+
 ```bash
 cat > src/lib/utils/exportExcel.js << 'EOL'
 import * as XLSX from 'xlsx';
@@ -872,7 +901,7 @@ import { formatCurrency, calculateTenantBalance, calculateTotalCollected, calcul
 
 export function exportToExcel(tenants, expenses, shareholders, currentMonth, notes = '') {
   const workbook = XLSX.utils.book_new();
-  
+
   // Tenant Payments Sheet
   const tenantData = tenants.map(tenant => {
     const calc = calculateTenantBalance(tenant.rent, tenant.payment);
@@ -886,25 +915,25 @@ export function exportToExcel(tenants, expenses, shareholders, currentMonth, not
       'Status': calc.status
     };
   });
-  
+
   const tenantSheet = XLSX.utils.json_to_sheet(tenantData);
   XLSX.utils.book_append_sheet(workbook, tenantSheet, 'Tenant Payments');
-  
+
   // Expenses Sheet
   const expenseData = Object.entries(expenses).map(([key, value]) => ({
     'Expense Type': key.charAt(0).toUpperCase() + key.slice(1),
     'Amount': value
   }));
-  
+
   const expenseSheet = XLSX.utils.json_to_sheet(expenseData);
   XLSX.utils.book_append_sheet(workbook, expenseSheet, 'Expenses');
-  
+
   // Summary Sheet
   const totalCollected = calculateTotalCollected(tenants.map(t => t.payment));
   const totalExpected = tenants.reduce((sum, tenant) => sum + tenant.rent, 0);
   const netIncome = calculateNetIncome(totalCollected, expenses);
   const totalExpenses = Object.values(expenses).reduce((sum, expense) => sum + expense, 0);
-  
+
   const summaryData = [
     { 'Item': 'Total Expected Rent', 'Amount': totalExpected },
     { 'Item': 'Total Rent Collected', 'Amount': totalCollected },
@@ -912,27 +941,27 @@ export function exportToExcel(tenants, expenses, shareholders, currentMonth, not
     { 'Item': 'Total Expenses', 'Amount': totalExpenses },
     { 'Item': 'Net Income for Distribution', 'Amount': netIncome }
   ];
-  
+
   const summarySheet = XLSX.utils.json_to_sheet(summaryData);
   XLSX.utils.book_append_sheet(workbook, summarySheet, 'Summary');
-  
+
   // Shareholder Distribution Sheet
   const distributionData = calculateShareholderDistribution(netIncome, shareholders).map(shareholder => ({
     'Shareholder': shareholder.name,
     'Ownership Percentage': shareholder.percentage,
     'Distribution Amount': shareholder.amount
   }));
-  
+
   const distributionSheet = XLSX.utils.json_to_sheet(distributionData);
   XLSX.utils.book_append_sheet(workbook, distributionSheet, 'Distribution');
-  
+
   // Notes Sheet
   if (notes) {
     const notesData = [{ 'Monthly Notes': notes }];
     const notesSheet = XLSX.utils.json_to_sheet(notesData);
     XLSX.utils.book_append_sheet(workbook, notesSheet, 'Notes');
   }
-  
+
   // Save the Excel file
   const fileName = `rental-report-${currentMonth}.xlsx`;
   XLSX.writeFile(workbook, fileName);
@@ -941,6 +970,7 @@ EOL
 ```
 
 #### 2.12 Create Action Buttons Component
+
 ```bash
 cat > src/lib/components/ActionButtons.svelte << 'EOL'
 <script>
@@ -948,27 +978,27 @@ cat > src/lib/components/ActionButtons.svelte << 'EOL'
   import { Download, Printer, RotateCcw } from 'lucide-svelte';
   import { exportToPdf } from '$lib/utils/exportPdf.js';
   import { exportToExcel } from '$lib/utils/exportExcel.js';
-  
+
   export let tenants = [];
   export let expenses = {};
   export let shareholders = [];
   export let currentMonth = '';
   export let notes = '';
-  
+
   const dispatch = createEventDispatcher();
-  
+
   function handlePdfExport() {
     exportToPdf(tenants, expenses, shareholders, currentMonth, notes);
   }
-  
+
   function handleExcelExport() {
     exportToExcel(tenants, expenses, shareholders, currentMonth, notes);
   }
-  
+
   function handlePrint() {
     window.print();
   }
-  
+
   function handleReset() {
     if (confirm('Are you sure you want to reset all data? This action cannot be undone.')) {
       dispatch('reset');
@@ -981,17 +1011,17 @@ cat > src/lib/components/ActionButtons.svelte << 'EOL'
     <Download size={16} />
     Download PDF
   </button>
-  
+
   <button on:click={handleExcelExport} class="btn-primary flex items-center gap-2">
     <Download size={16} />
     Download Excel
   </button>
-  
+
   <button on:click={handlePrint} class="btn-secondary flex items-center gap-2">
     <Printer size={16} />
     Print
   </button>
-  
+
   <button on:click={handleReset} class="btn-secondary flex items-center gap-2">
     <RotateCcw size={16} />
     Reset Data
@@ -1011,45 +1041,46 @@ EOL
 ### Phase 6: Main Application
 
 #### 2.13 Create Main Page
+
 ```bash
 cat > src/routes/+page.svelte << 'EOL'
 <script>
   import { onMount } from 'svelte';
   import { tenants, expenses, shareholders, currentMonth, monthlyNotes, resetToDefaults } from '$lib/stores/rentalData.js';
   import { calculateNetIncome, calculateTotalCollected } from '$lib/utils/calculations.js';
-  
+
   import TenantTable from '$lib/components/TenantTable.svelte';
   import ExpenseTable from '$lib/components/ExpenseTable.svelte';
   import SummarySection from '$lib/components/SummarySection.svelte';
   import ShareholderTable from '$lib/components/ShareholderTable.svelte';
   import ActionButtons from '$lib/components/ActionButtons.svelte';
-  
+
   let currentTenants = [];
   let currentExpenses = {};
   let currentShareholders = [];
   let currentMonthValue = '';
   let currentNotes = '';
-  
+
   // Subscribe to stores
   $: currentTenants = $tenants;
   $: currentExpenses = $expenses;
   $: currentShareholders = $shareholders;
   $: currentMonthValue = $currentMonth;
   $: currentNotes = $monthlyNotes;
-  
+
   // Calculated values
   $: totalCollected = calculateTotalCollected(currentTenants.map(t => t.payment));
   $: netIncome = calculateNetIncome(totalCollected, currentExpenses);
-  
+
   function handleTenantUpdate(event) {
     const { tenantId, field, value } = event.detail;
-    tenants.update(tenantList => 
-      tenantList.map(tenant => 
+    tenants.update(tenantList =>
+      tenantList.map(tenant =>
         tenant.id === tenantId ? { ...tenant, [field]: value } : tenant
       )
     );
   }
-  
+
   function handleExpenseUpdate(event) {
     const { field, value } = event.detail;
     expenses.update(expenseObj => ({
@@ -1057,15 +1088,15 @@ cat > src/routes/+page.svelte << 'EOL'
       [field]: value
     }));
   }
-  
+
   function handleMonthChange(event) {
     currentMonth.set(event.target.value);
   }
-  
+
   function handleNotesChange(event) {
     monthlyNotes.set(event.target.value);
   }
-  
+
   function handleReset() {
     resetToDefaults();
   }
@@ -1079,20 +1110,20 @@ cat > src/routes/+page.svelte << 'EOL'
   <!-- Header -->
   <div class="text-center mb-8">
     <h1 class="text-3xl font-bold text-gray-800 mb-4">Rental Property Management</h1>
-    
+
     <div class="flex items-center justify-center gap-4 mb-6">
       <label for="month-selector" class="text-lg font-medium text-gray-700">Month:</label>
-      <input 
+      <input
         id="month-selector"
-        type="month" 
+        type="month"
         value={currentMonthValue}
         on:change={handleMonthChange}
         class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
       />
     </div>
-    
+
     <!-- Action Buttons -->
-    <ActionButtons 
+    <ActionButtons
       {tenants}={currentTenants}
       {expenses}={currentExpenses}
       {shareholders}={currentShareholders}
@@ -1101,50 +1132,50 @@ cat > src/routes/+page.svelte << 'EOL'
       on:reset={handleReset}
     />
   </div>
-  
+
   <!-- Tenant Payments -->
   <div class="mb-8">
     <h2 class="text-xl font-bold text-gray-800 mb-4">Tenant Payments</h2>
-    <TenantTable 
-      tenants={currentTenants} 
+    <TenantTable
+      tenants={currentTenants}
       on:updateTenant={handleTenantUpdate}
     />
   </div>
-  
+
   <!-- Expenses -->
   <div class="mb-8">
     <h2 class="text-xl font-bold text-gray-800 mb-4">Monthly Expenses</h2>
-    <ExpenseTable 
+    <ExpenseTable
       expenses={currentExpenses}
       on:updateExpense={handleExpenseUpdate}
     />
   </div>
-  
+
   <!-- Summary -->
   <div class="mb-8">
-    <SummarySection 
+    <SummarySection
       tenants={currentTenants}
       expenses={currentExpenses}
     />
   </div>
-  
+
   <!-- Shareholder Distribution -->
   <div class="mb-8">
     <h2 class="text-xl font-bold text-gray-800 mb-4">Profit Distribution</h2>
-    <ShareholderTable 
+    <ShareholderTable
       shareholders={currentShareholders}
       {netIncome}
     />
   </div>
-  
+
   <!-- Notes Section -->
   <div class="mb-8">
     <h2 class="text-xl font-bold text-gray-800 mb-4">Monthly Notes</h2>
     <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
-      <textarea 
+      <textarea
         value={currentNotes}
         on:input={handleNotesChange}
-        rows="4" 
+        rows="4"
         class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
         placeholder="Add notes about this month's rental activities, maintenance issues, tenant communications, etc."
       ></textarea>
@@ -1158,12 +1189,12 @@ cat > src/routes/+page.svelte << 'EOL'
       max-width: none !important;
       padding: 0 !important;
     }
-    
+
     h1, h2 {
       color: #000 !important;
       page-break-after: avoid;
     }
-    
+
     .bg-blue-50, .bg-green-100, .bg-purple-100, .bg-orange-100 {
       background-color: #f8f9fa !important;
     }
@@ -1175,6 +1206,7 @@ EOL
 ### Phase 7: Testing and Deployment
 
 #### 2.14 Run All Tests
+
 ```bash
 # Run all tests
 npm run test
@@ -1187,6 +1219,7 @@ npm run test -- --watch
 ```
 
 #### 2.15 Create Integration Tests
+
 ```bash
 cat > tests/integration/app.test.js << 'EOL'
 import { describe, it, expect } from 'vitest';
@@ -1196,7 +1229,7 @@ import Page from '../../src/routes/+page.svelte';
 describe('Rental Management App Integration', () => {
   it('renders all main sections', () => {
     const { getByText } = render(Page);
-    
+
     expect(getByText('Rental Property Management')).toBeTruthy();
     expect(getByText('Tenant Payments')).toBeTruthy();
     expect(getByText('Monthly Expenses')).toBeTruthy();
@@ -1206,13 +1239,13 @@ describe('Rental Management App Integration', () => {
 
   it('calculates totals correctly when payments are updated', async () => {
     const { getByText, container } = render(Page);
-    
+
     // Find Franz's payment input and update it
     const paymentInputs = container.querySelectorAll('input[type="number"]');
     const franzPaymentInput = paymentInputs[0]; // Assuming Franz is first
-    
+
     await fireEvent.input(franzPaymentInput, { target: { value: '2000' } });
-    
+
     // Check if calculations update
     expect(getByText(/₱2,000\.00/)).toBeTruthy();
   });
@@ -1221,6 +1254,7 @@ EOL
 ```
 
 #### 2.16 Prepare for GitHub Pages Deployment
+
 ```bash
 # Update package.json with build and deploy scripts
 cat > package.json << 'EOL'
@@ -1273,6 +1307,7 @@ npm install
 ```
 
 #### 2.17 Create GitHub Actions for Deployment
+
 ```bash
 mkdir -p .github/workflows
 
@@ -1332,6 +1367,7 @@ EOL
 ```
 
 #### 2.18 Final Deployment Commands
+
 ```bash
 # Initialize git repository
 git init
@@ -1350,6 +1386,7 @@ git push -u origin main
 ## Development Workflow
 
 ### Daily Development Commands
+
 ```bash
 # Start development server
 npm run dev
@@ -1372,12 +1409,14 @@ npm run preview
 ```
 
 ### Testing Strategy
+
 1. **Unit Tests**: Test individual functions and calculations
 2. **Component Tests**: Test Svelte component behavior and rendering
 3. **Integration Tests**: Test complete user workflows
 4. **Test Coverage**: Maintain >90% test coverage
 
 ### TDD Process
+
 1. Write failing test
 2. Write minimal code to pass test
 3. Refactor and improve
@@ -1386,6 +1425,7 @@ npm run preview
 ## Features Summary
 
 ### Core Functionality
+
 - ✅ Monthly rental payment tracking
 - ✅ Expense management (internet, utilities, maintenance)
 - ✅ Automatic balance calculations
@@ -1393,12 +1433,14 @@ npm run preview
 - ✅ Payment status tracking
 
 ### Export Features
+
 - ✅ PDF export with formatted tables
 - ✅ Excel export with multiple sheets
 - ✅ Print-friendly styling
 - ✅ Downloadable reports with current month data
 
 ### Technical Features
+
 - ✅ Responsive design with TailwindCSS
 - ✅ Component-based architecture
 - ✅ Comprehensive test coverage
@@ -1406,6 +1448,7 @@ npm run preview
 - ✅ No data persistence (fresh start each session)
 
 ### User Experience
+
 - ✅ Intuitive form-based interface
 - ✅ Real-time calculations
 - ✅ Month selector for report naming

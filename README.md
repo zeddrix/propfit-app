@@ -5,19 +5,22 @@ A modern, responsive rental property management calculator built with SvelteKit,
 ## ✨ Features
 
 ### Core Functionality
+
 - **Monthly Rental Payment Tracking** - Track payments from multiple tenants
-- **Expense Management** - Manage internet, utilities, maintenance, and other expenses  
+- **Expense Management** - Manage internet, utilities, maintenance, and other expenses
 - **Automatic Calculations** - Real-time balance calculations and payment status
 - **Profit Distribution** - Automatic shareholder distribution based on ownership percentages
 - **Payment Status Tracking** - Visual status indicators (Paid, Pending, Advance Payment)
 
 ### Export Features
+
 - **PDF Export** - Generate formatted PDF reports with all monthly data
 - **Excel Export** - Export to Excel with multiple sheets for detailed analysis
 - **Print-Friendly** - Optimized print styling for physical reports
 - **Month Selection** - Generate reports for any month with proper naming
 
 ### Technical Features
+
 - **No Data Persistence** - Fresh start each session, perfect for monthly calculations
 - **Responsive Design** - Works on desktop, tablet, and mobile devices
 - **TypeScript Support** - Full type safety throughout the application
@@ -27,23 +30,27 @@ A modern, responsive rental property management calculator built with SvelteKit,
 ## 🚀 Getting Started
 
 ### Prerequisites
-- Node.js 18+ 
+
+- Node.js 18+
 - pnpm (recommended) or npm
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd propfit-app
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Start development server**
+
    ```bash
    pnpm dev
    ```
@@ -54,11 +61,13 @@ A modern, responsive rental property management calculator built with SvelteKit,
 ## 🧪 Testing
 
 Run the test suite:
+
 ```bash
 pnpm test
 ```
 
 Run tests with coverage:
+
 ```bash
 pnpm run test:coverage
 ```
@@ -66,11 +75,13 @@ pnpm run test:coverage
 ## 🏗️ Building for Production
 
 Build the application:
+
 ```bash
 pnpm build
 ```
 
 Preview the production build:
+
 ```bash
 pnpm preview
 ```
@@ -86,6 +97,7 @@ pnpm preview
 ### Manual Deployment
 
 Deploy to GitHub Pages manually:
+
 ```bash
 pnpm run deploy
 ```
@@ -93,7 +105,9 @@ pnpm run deploy
 ## 📊 Usage Guide
 
 ### Default Setup
+
 The application comes pre-configured with:
+
 - **6 Tenants**: Franz (Unit 1), Ging Bagro, Ryzza Maglanque, Shane Mikaela Galang, Shiky Cagaitan, Lyn Villanueva (all Unit 3)
 - **Default Expenses**: Internet (₱1,585.54), Water, Electricity, Maintenance, Other
 - **Shareholders**: Zedd (30%), Mommy (35%), Maru (35%)
@@ -111,7 +125,7 @@ The application comes pre-configured with:
 
 - **Tenant Balance** = Monthly Rent - Amount Paid
 - **Total Collected** = Sum of all tenant payments
-- **Net Income** = Total Collected - Total Expenses  
+- **Net Income** = Total Collected - Total Expenses
 - **Shareholder Distribution** = Net Income × Ownership Percentage
 
 ## 🛠️ Technology Stack
@@ -200,6 +214,7 @@ If you encounter any issues or have questions:
 ## 🎯 Roadmap
 
 Future enhancements under consideration:
+
 - [ ] Data persistence options (localStorage, cloud storage)
 - [ ] Multi-property support
 - [ ] Advanced reporting features

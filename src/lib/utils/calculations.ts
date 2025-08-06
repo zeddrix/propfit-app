@@ -1,4 +1,9 @@
-import type { TenantBalance, ShareholderWithAmount, Shareholder, Expenses } from '../types/index.js';
+import type {
+	TenantBalance,
+	ShareholderWithAmount,
+	Shareholder,
+	Expenses
+} from '../types/index.js';
 
 /**
  * Calculate tenant balance and payment status
@@ -7,18 +12,18 @@ import type { TenantBalance, ShareholderWithAmount, Shareholder, Expenses } from
  * @returns Object with balance and status
  */
 export function calculateTenantBalance(rent: number, payment: number): TenantBalance {
-  const balance = rent - payment;
-  let status: TenantBalance['status'];
-  
-  if (balance > 0) {
-    status = 'Pending';
-  } else if (balance === 0) {
-    status = 'Paid';
-  } else {
-    status = 'Advance Payment';
-  }
-  
-  return { balance, status };
+	const balance = rent - payment;
+	let status: TenantBalance['status'];
+
+	if (balance > 0) {
+		status = 'Pending';
+	} else if (balance === 0) {
+		status = 'Paid';
+	} else {
+		status = 'Advance Payment';
+	}
+
+	return { balance, status };
 }
 
 /**
@@ -27,7 +32,7 @@ export function calculateTenantBalance(rent: number, payment: number): TenantBal
  * @returns Total collected amount
  */
 export function calculateTotalCollected(payments: number[]): number {
-  return payments.reduce((sum, payment) => sum + payment, 0);
+	return payments.reduce((sum, payment) => sum + payment, 0);
 }
 
 /**
@@ -37,8 +42,8 @@ export function calculateTotalCollected(payments: number[]): number {
  * @returns Net income
  */
 export function calculateNetIncome(totalCollected: number, expenses: Expenses): number {
-  const totalExpenses = Object.values(expenses).reduce((sum, expense) => sum + expense, 0);
-  return totalCollected - totalExpenses;
+	const totalExpenses = Object.values(expenses).reduce((sum, expense) => sum + expense, 0);
+	return totalCollected - totalExpenses;
 }
 
 /**
@@ -48,13 +53,13 @@ export function calculateNetIncome(totalCollected: number, expenses: Expenses): 
  * @returns Array of shareholders with calculated amounts
  */
 export function calculateShareholderDistribution(
-  netIncome: number, 
-  shareholders: Shareholder[]
+	netIncome: number,
+	shareholders: Shareholder[]
 ): ShareholderWithAmount[] {
-  return shareholders.map(shareholder => ({
-    ...shareholder,
-    amount: (netIncome * shareholder.percentage) / 100
-  }));
+	return shareholders.map((shareholder) => ({
+		...shareholder,
+		amount: (netIncome * shareholder.percentage) / 100
+	}));
 }
 
 /**
@@ -63,5 +68,5 @@ export function calculateShareholderDistribution(
  * @returns Formatted currency string
  */
 export function formatCurrency(amount: number): string {
-  return `₱${amount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+	return `₱${amount.toLocaleString('en-PH', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 }

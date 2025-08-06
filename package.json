@@ -15,7 +15,7 @@
 		"test:unit": "vitest run src/lib/utils/calculations.test.ts",
 		"test": "npm run test:unit",
 		"test:coverage": "vitest run src/lib/utils/calculations.test.ts --coverage",
-		"deploy": "npm run build && npx gh-pages -d build"
+		"deploy": "BASE_PATH='/propfit-app' npm run build && npx gh-pages -d build"
 	},
 	"devDependencies": {
 		"@eslint/compat": "^1.2.5",

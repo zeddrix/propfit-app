@@ -45,22 +45,22 @@
 </script>
 
 <div class="flex flex-wrap gap-4 justify-center mb-6">
-	<button onclick={handlePdfExport} class="btn-primary flex items-center gap-2">
+	<button onclick={handlePdfExport} class="btn-primary flex items-center gap-2 cursor-pointer">
 		<Download size={16} />
 		Download PDF
 	</button>
 
-	<button onclick={handleExcelExport} class="btn-primary flex items-center gap-2">
+	<button onclick={handleExcelExport} class="btn-primary flex items-center gap-2 cursor-pointer">
 		<Download size={16} />
 		Download Excel
 	</button>
 
-	<button onclick={handlePrint} class="btn-secondary flex items-center gap-2">
+	<button onclick={handlePrint} class="btn-secondary flex items-center gap-2 cursor-pointer">
 		<Printer size={16} />
 		Print
 	</button>
 
-	<button onclick={handleReset} class="btn-secondary flex items-center gap-2">
+	<button onclick={handleReset} class="btn-secondary flex items-center gap-2 cursor-pointer">
 		<RotateCcw size={16} />
 		Reset Data
 	</button>

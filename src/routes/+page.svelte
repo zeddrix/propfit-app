@@ -151,7 +151,7 @@
       page-break-after: avoid;
     }
     
-    .bg-blue-50, .bg-green-100, .bg-purple-100, .bg-orange-100 {
+    .bg-blue-50 {
       background-color: #f8f9fa !important;
     }
   }

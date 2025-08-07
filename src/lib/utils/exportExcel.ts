@@ -12,9 +12,26 @@ export function exportToExcel(
 	expenses: Expenses,
 	shareholders: Shareholder[],
 	currentMonth: string,
-	notes: string = ''
+	notes: string = '',
+	preparedBy: string = ''
 ): void {
 	const workbook = XLSX.utils.book_new();
+
+	// Report Info Sheet
+	const infoData = [
+		{
+			Field: 'Report Month',
+			Value: new Date(currentMonth + '-01').toLocaleDateString('en-US', {
+				month: 'long',
+				year: 'numeric'
+			})
+		},
+		{ Field: 'Prepared By', Value: preparedBy || 'Not specified' },
+		{ Field: 'Generated Date', Value: new Date().toLocaleDateString() }
+	];
+
+	const infoSheet = XLSX.utils.json_to_sheet(infoData);
+	XLSX.utils.book_append_sheet(workbook, infoSheet, 'Report Info');
 
 	// Tenant Payments Sheet
 	const tenantData = tenants.map((tenant) => {

@@ -11,7 +11,7 @@
 		expenses: Expenses;
 	}
 
-	let { expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 } }: Props =
+	const { expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 } }: Props =
 		$props();
 
 	const dispatch = createEventDispatcher<{
@@ -34,20 +34,22 @@
 <div class="overflow-x-auto">
 	<table class="w-full border-collapse border border-gray-300">
 		<thead>
-			<tr class="bg-orange-100">
-				<th class="border border-gray-300 px-4 py-2 text-left" colspan="3">Monthly Expenses</th>
+			<tr class="bg-orange-500">
+				<th class="border border-gray-300 px-4 py-2 text-left text-white" colspan="3"
+					>Monthly Expenses</th
+				>
 			</tr>
 			<tr class="bg-orange-50">
-				<th class="border border-gray-300 px-4 py-2 text-left">Expense Type</th>
-				<th class="border border-gray-300 px-4 py-2 text-left">Amount (₱)</th>
-				<th class="border border-gray-300 px-4 py-2 text-left">Notes</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Expense Type</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Amount (₱)</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Notes</th>
 			</tr>
 		</thead>
 		<tbody>
 			{#each Object.keys(expenseLabels) as expenseKey (expenseKey)}
 				{@const key = expenseKey as keyof Expenses}
-				<tr class="hover:bg-gray-50">
-					<td class="border border-gray-300 px-4 py-2">{expenseLabels[key]}</td>
+				<tr class="hover:bg-gray-50 bg-white transition-colors">
+					<td class="border border-gray-300 px-4 py-2 text-gray-800">{expenseLabels[key]}</td>
 					<td class="border border-gray-300 px-4 py-2">
 						<input
 							type="number"

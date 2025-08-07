@@ -1,5 +1,5 @@
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import {
 	formatCurrency,
 	calculateTenantBalance,
@@ -9,15 +9,10 @@ import {
 } from './calculations.js';
 import type { Tenant, Expenses, Shareholder } from '../types/index.js';
 
+// Extend jsPDF interface to include autoTable
 declare module 'jspdf' {
 	interface jsPDF {
-		autoTable: (options: {
-			startY?: number;
-			head?: string[][];
-			body?: (string | number)[][];
-			theme?: string;
-			headStyles?: Record<string, unknown>;
-		}) => jsPDF;
+		autoTable: typeof autoTable;
 		lastAutoTable: { finalY: number };
 	}
 }
@@ -27,9 +22,13 @@ export function exportToPdf(
 	expenses: Expenses,
 	shareholders: Shareholder[],
 	currentMonth: string,
-	notes: string = ''
+	notes: string = '',
+	preparedBy: string = ''
 ): void {
 	const doc = new jsPDF();
+
+	// Add autoTable to the document instance
+	doc.autoTable = autoTable;
 
 	// Header
 	doc.setFontSize(18);
@@ -43,7 +42,12 @@ export function exportToPdf(
 		{ align: 'center' }
 	);
 
-	let yPosition = 45;
+	if (preparedBy) {
+		doc.setFontSize(12);
+		doc.text(`Prepared by: ${preparedBy}`, 105, 40, { align: 'center' });
+	}
+
+	let yPosition = preparedBy ? 55 : 45;
 
 	// Tenant Payment Table
 	doc.setFontSize(12);
@@ -62,7 +66,7 @@ export function exportToPdf(
 		];
 	});
 
-	doc.autoTable({
+	autoTable(doc, {
 		startY: yPosition,
 		head: [['Tenant', 'Rent', 'Paid', 'Date', 'Balance', 'Status']],
 		body: tenantData,
@@ -81,7 +85,7 @@ export function exportToPdf(
 		formatCurrency(value)
 	]);
 
-	doc.autoTable({
+	autoTable(doc, {
 		startY: yPosition,
 		head: [['Expense Type', 'Amount']],
 		body: expenseData,
@@ -108,7 +112,7 @@ export function exportToPdf(
 	doc.text('Monthly Summary', 20, yPosition);
 	yPosition += 5;
 
-	doc.autoTable({
+	autoTable(doc, {
 		startY: yPosition,
 		head: [['Item', 'Amount']],
 		body: summaryData,
@@ -129,7 +133,7 @@ export function exportToPdf(
 	doc.text('Shareholder Distribution', 20, yPosition);
 	yPosition += 5;
 
-	doc.autoTable({
+	autoTable(doc, {
 		startY: yPosition,
 		head: [['Shareholder', 'Ownership %', 'Distribution Amount']],
 		body: shareholderTableData,

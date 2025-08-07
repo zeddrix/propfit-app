@@ -6,7 +6,8 @@
 		currentMonth,
 		monthlyNotes,
 		preparedBy,
-		resetToDefaults
+		resetToDefaults,
+		markAllPaid
 	} from '$lib/stores/rentalData.js';
 	import { calculateNetIncome, calculateTotalCollected } from '$lib/utils/calculations.js';
 	import type { Tenant, Expenses, Shareholder } from '$lib/types/index.js';
@@ -16,32 +17,21 @@
 	import SummarySection from '$lib/components/SummarySection.svelte';
 	import ShareholderTable from '$lib/components/ShareholderTable.svelte';
 	import NavigationBar from '$lib/components/NavigationBar.svelte';
-	import Tooltip from '$lib/components/Tooltip.svelte';
+	import SettingsModal from '$lib/components/SettingsModal.svelte';
 
-	let currentTenants: Tenant[] = [];
-	let currentExpenses: Expenses = {
-		internet: 0,
-		water: 0,
-		electricity: 0,
-		maintenance: 0,
-		other: 0
-	};
-	let currentShareholders: Shareholder[] = [];
-	let currentMonthValue: string = '';
-	let currentNotes: string = '';
-	let currentPreparedBy: string = '';
+	let isSettingsModalOpen = $state(false);
 
-	// Subscribe to stores
-	$: currentTenants = $tenants;
-	$: currentExpenses = $expenses;
-	$: currentShareholders = $shareholders;
-	$: currentMonthValue = $currentMonth;
-	$: currentNotes = $monthlyNotes;
-	$: currentPreparedBy = $preparedBy;
+	// Subscribe to stores using $derived
+	const currentTenants = $derived($tenants);
+	const currentExpenses = $derived($expenses);
+	const currentShareholders = $derived($shareholders);
+	const currentMonthValue = $derived($currentMonth);
+	const currentNotes = $derived($monthlyNotes);
+	const currentPreparedBy = $derived($preparedBy);
 
 	// Calculated values
-	$: totalCollected = calculateTotalCollected(currentTenants.map((t) => t.payment));
-	$: netIncome = calculateNetIncome(totalCollected, currentExpenses);
+	const totalCollected = $derived(calculateTotalCollected(currentTenants.map((t) => t.payment)));
+	const netIncome = $derived(calculateNetIncome(totalCollected, currentExpenses));
 
 	function handleTenantUpdate(
 		event: CustomEvent<{ tenantId: string; field: keyof Tenant; value: string | number }>
@@ -78,6 +68,14 @@
 	function handleReset() {
 		resetToDefaults();
 	}
+
+	function openSettingsModal() {
+		isSettingsModalOpen = true;
+	}
+
+	function closeSettingsModal() {
+		isSettingsModalOpen = false;
+	}
 </script>
 
 <svelte:head>
@@ -98,7 +96,11 @@
 	notes={currentNotes}
 	preparedBy={currentPreparedBy}
 	onreset={handleReset}
+	onopenSettings={openSettingsModal}
 />
+
+<!-- Settings Modal -->
+<SettingsModal isOpen={isSettingsModalOpen} onclose={closeSettingsModal} />
 
 <div class="container mx-auto px-4 py-8 max-w-7xl bg-white min-h-screen">
 	<!-- Header -->
@@ -138,19 +140,20 @@
 
 	<!-- Tenant Payments -->
 	<div class="mb-8">
-		<h2 class="text-xl font-bold text-gray-800 mb-4">Tenant Payments</h2>
+		<div class="flex justify-between items-center mb-4">
+			<h2 class="text-xl font-bold text-gray-800">Tenant Payments</h2>
+			<button
+				onclick={markAllPaid}
+				class="cursor-pointer bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
+			>
+				Mark All Paid
+			</button>
+		</div>
 		<TenantTable tenants={currentTenants} onupdateTenant={handleTenantUpdate} />
 	</div>
 
 	<!-- Expenses -->
 	<div class="mb-8">
-		<div class="flex items-center gap-2 mb-4">
-			<h2 class="text-xl font-bold text-gray-800">Monthly Expenses</h2>
-			<Tooltip
-				content="Track monthly property expenses including utilities, maintenance, and other operational costs. These expenses are deducted from total rent collected to calculate net income for distribution."
-				position="right"
-			/>
-		</div>
 		<ExpenseTable expenses={currentExpenses} onupdateExpense={handleExpenseUpdate} />
 	</div>
 
@@ -161,13 +164,6 @@
 
 	<!-- Shareholder Distribution -->
 	<div class="mb-8">
-		<div class="flex items-center gap-2 mb-4">
-			<h2 class="text-xl font-bold text-gray-800">Profit Distribution</h2>
-			<Tooltip
-				content="Net income distribution among shareholders based on their ownership percentages. Net income = Total rent collected - Total expenses."
-				position="right"
-			/>
-		</div>
 		<ShareholderTable shareholders={currentShareholders} {netIncome} />
 	</div>
 

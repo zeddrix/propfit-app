@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import { calculateTenantBalance, formatCurrency } from '$lib/utils/calculations.js';
-	import { addTenant, removeTenant, restoreTenant, markAllPaid } from '$lib/stores/rentalData.js';
+	import { addTenant, removeTenant, restoreTenant } from '$lib/stores/rentalData.js';
 	import type { Tenant } from '$lib/types/index.js';
+	import InfoIcon from './InfoIcon.svelte';
 
 	interface UpdateTenantEvent {
 		tenantId: string;
@@ -12,9 +13,10 @@
 
 	interface Props {
 		tenants: Tenant[];
+		onupdateTenant?: (event: CustomEvent<UpdateTenantEvent>) => void;
 	}
 
-	const { tenants = [] }: Props = $props();
+	const { tenants = [], onupdateTenant }: Props = $props();
 
 	const dispatch = createEventDispatcher<{
 		updateTenant: UpdateTenantEvent;
@@ -26,6 +28,7 @@
 
 	// Group tenants by unit using $derived
 	const unit1Tenants = $derived(tenants.filter((t) => t.unit === 'Unit 1 (2 pax) - studio type 1'));
+	const unit2Tenants = $derived(tenants.filter((t) => t.unit === 'Unit 2 (6 pax) - studio type 2'));
 	const unit3Tenants = $derived(tenants.filter((t) => t.unit === 'Unit 3 (10 pax) - up/down'));
 
 	function updateTenantField(tenantId: string, field: keyof Tenant, value: string | number) {
@@ -77,23 +80,9 @@
 			undoTimeout = null;
 		}
 	}
-
-	function handleMarkAllPaid() {
-		markAllPaid();
-	}
 </script>
 
 <div class="space-y-6">
-	<!-- Mark All Paid Button -->
-	<div class="flex justify-end">
-		<button
-			onclick={handleMarkAllPaid}
-			class="cursor-pointer bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg font-medium transition-colors"
-		>
-			Mark All Paid
-		</button>
-	</div>
-
 	<!-- Unit 1 Table -->
 	<div class="overflow-x-auto">
 		<div class="mb-2">
@@ -103,12 +92,24 @@
 		<table class="w-full border-collapse border border-gray-300">
 			<thead>
 				<tr class="bg-green-500 text-white">
-					<th class="border border-gray-300 px-4 py-2 text-left">Unit/Tenant</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Monthly Rent (₱)</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Amount Paid (₱)</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Payment Date</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Balance (₱)</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Status</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Unit/Tenant
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Monthly Rent (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Amount Paid (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Payment Date
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Balance (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Status
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -166,10 +167,125 @@
 		</table>
 	</div>
 
+	<!-- Unit 2 Table -->
+	<div class="overflow-x-auto">
+		<div class="mb-2 flex justify-between items-center">
+			<div class="flex items-center gap-2">
+				<h3 class="text-lg font-semibold text-gray-800">Unit 2 (6 pax) - studio type 2</h3>
+				<InfoIcon
+					content="Min unit rent: P2,000/month | Min rent/person (2+ occupants): P1,000/month | Max occupancy: 6 persons | Max unit rent: P6,000/month"
+					position="right"
+					size={16}
+				/>
+			</div>
+			<button
+				onclick={() => addTenant('Unit 2 (6 pax) - studio type 2')}
+				class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+			>
+				Add Tenant
+			</button>
+		</div>
+
+		<table class="w-full border-collapse border border-gray-300">
+			<thead>
+				<tr class="bg-green-500 text-white">
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Unit/Tenant
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Monthly Rent (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Amount Paid (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Payment Date
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Balance (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Status
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Actions
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each unit2Tenants as tenant (tenant.id)}
+					{@const calculation = getTenantCalculation(tenant)}
+					<tr class="hover:bg-gray-50">
+						<td class="border border-gray-300 px-4 py-2 font-medium">
+							<input
+								type="text"
+								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-gray-300"
+								value={tenant.name}
+								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
+							/>
+						</td>
+						<td class="border border-gray-300 px-4 py-2 text-right"
+							>{formatCurrency(tenant.rent)}</td
+						>
+						<td class="border border-gray-300 px-4 py-2">
+							<input
+								type="number"
+								class="table-input text-right cursor-pointer"
+								value={tenant.payment}
+								min="0"
+								step="1000"
+								oninput={(e) =>
+									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
+							/>
+						</td>
+						<td class="border border-gray-300 px-4 py-2">
+							<input
+								type="date"
+								class="table-input cursor-pointer"
+								value={tenant.paymentDate}
+								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
+							/>
+						</td>
+						<td class="border border-gray-300 px-4 py-2 text-right font-mono">
+							{formatCurrency(Math.abs(calculation.balance))}
+						</td>
+						<td class="border border-gray-300 px-4 py-2">
+							<span
+								class="px-2 py-1 rounded-full text-xs font-medium
+								{calculation.status === 'Paid'
+									? 'bg-green-100 text-green-800'
+									: calculation.status === 'Pending'
+										? 'bg-yellow-100 text-yellow-800'
+										: 'bg-blue-100 text-blue-800'}"
+							>
+								{calculation.status}
+							</span>
+						</td>
+						<td class="border border-gray-300 px-4 py-2">
+							<button
+								onclick={() => handleRemoveTenant(tenant.id)}
+								class="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+							>
+								Remove
+							</button>
+						</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
+
 	<!-- Unit 3 Table -->
 	<div class="overflow-x-auto">
 		<div class="mb-2 flex justify-between items-center">
-			<h3 class="text-lg font-semibold text-gray-800">Unit 3 (10 pax) - up/down</h3>
+			<div class="flex items-center gap-2">
+				<h3 class="text-lg font-semibold text-gray-800">Unit 3 (10 pax) - up/down</h3>
+				<InfoIcon
+					content="Min rent/person: P1,000/month | Max occupancy: 10 persons | Max unit rent: P10,000/month"
+					position="right"
+					size={16}
+				/>
+			</div>
 			<button
 				onclick={handleAddTenant}
 				class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
@@ -181,13 +297,27 @@
 		<table class="w-full border-collapse border border-gray-300">
 			<thead>
 				<tr class="bg-green-500 text-white">
-					<th class="border border-gray-300 px-4 py-2 text-left">Unit/Tenant</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Monthly Rent (₱)</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Amount Paid (₱)</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Payment Date</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Balance (₱)</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Status</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">Actions</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Unit/Tenant
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Monthly Rent (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Amount Paid (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Payment Date
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Balance (₱)
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Status
+					</th>
+					<th class="border border-gray-300 px-4 py-2 text-left">
+						Actions
+					</th>
 				</tr>
 			</thead>
 			<tbody>

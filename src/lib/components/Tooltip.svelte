@@ -1,49 +1,13 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
-
 	interface Props {
 		content: string;
 		position?: 'top' | 'bottom' | 'left' | 'right';
 	}
 
-	const { content, position = 'top' }: Props = $props();
+	const { content, position = 'bottom' }: Props = $props();
 
 	let showTooltip = $state(false);
 	let tooltipElement = $state<HTMLDivElement>();
-
-	const dispatch = createEventDispatcher<{
-		show: void;
-		hide: void;
-	}>();
-
-	function handleMouseEnter() {
-		showTooltip = true;
-		dispatch('show');
-	}
-
-	function handleMouseLeave() {
-		showTooltip = false;
-		dispatch('hide');
-	}
-
-	function handleKeyDown(event: KeyboardEvent) {
-		if (event.key === 'Enter' || event.key === ' ') {
-			event.preventDefault();
-			showTooltip = !showTooltip;
-		} else if (event.key === 'Escape') {
-			showTooltip = false;
-		}
-	}
-
-	function handleFocus() {
-		showTooltip = true;
-		dispatch('show');
-	}
-
-	function handleBlur() {
-		showTooltip = false;
-		dispatch('hide');
-	}
 
 	// Position classes for different tooltip positions
 	const positionClasses = {
@@ -54,34 +18,38 @@
 	};
 
 	const arrowClasses = {
-		top: 'top-full left-1/2 transform -translate-x-1/2 border-t-gray-800',
-		bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-b-gray-800',
-		left: 'left-full top-1/2 transform -translate-y-1/2 border-l-gray-800',
-		right: 'right-full top-1/2 transform -translate-y-1/2 border-r-gray-800'
+		top: 'top-full left-1/2 transform -translate-x-1/2 border-t-gray-900 dark:border-t-gray-200',
+		bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-b-gray-900 dark:border-b-gray-200',
+		left: 'left-full top-1/2 transform -translate-y-1/2 border-l-gray-900 dark:border-l-gray-200',
+		right: 'right-full top-1/2 transform -translate-y-1/2 border-r-gray-900 dark:border-r-gray-200'
 	};
+
+	function handleMouseEnter() {
+		showTooltip = true;
+	}
+
+	function handleMouseLeave() {
+		showTooltip = false;
+	}
+
+	function handleFocus() {
+		showTooltip = true;
+	}
+
+	function handleBlur() {
+		showTooltip = false;
+	}
 </script>
 
-<div class="relative inline-block">
-	<!-- Trigger element (info icon) -->
-	<button
-		type="button"
-		class="inline-flex items-center justify-center w-5 h-5 text-gray-400 hover:text-gray-600 focus:text-gray-600 focus:outline-none transition-colors cursor-help"
-		onmouseenter={handleMouseEnter}
-		onmouseleave={handleMouseLeave}
-		onfocus={handleFocus}
-		onblur={handleBlur}
-		onkeydown={handleKeyDown}
-		aria-describedby="tooltip"
-		aria-label="Information"
-	>
-		<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-			<path
-				fill-rule="evenodd"
-				d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-				clip-rule="evenodd"
-			></path>
-		</svg>
-	</button>
+<!-- Tooltip wrapper that wraps the target element -->
+<div 
+	class="relative inline-block"
+	onmouseenter={handleMouseEnter}
+	onmouseleave={handleMouseLeave}
+	onfocus={handleFocus}
+	onblur={handleBlur}
+>
+	<slot />
 
 	<!-- Tooltip -->
 	{#if showTooltip}
@@ -89,9 +57,7 @@
 			bind:this={tooltipElement}
 			id="tooltip"
 			role="tooltip"
-			class="absolute z-50 px-3 py-2 text-sm text-white bg-gray-800 rounded-lg shadow-lg max-w-xs {positionClasses[
-				position
-			]}"
+			class="absolute z-[100] px-3 py-2 text-sm font-medium text-white bg-gray-900 dark:bg-gray-200 dark:text-gray-900 rounded-lg shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-200 {positionClasses[position]}"
 		>
 			{content}
 			<!-- Arrow -->

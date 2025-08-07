@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatCurrency, calculateShareholderDistribution } from '$lib/utils/calculations.js';
 	import type { Shareholder } from '$lib/types/index.js';
+	import InfoIcon from './InfoIcon.svelte';
 
 	interface Props {
 		shareholders: Shareholder[];
@@ -21,12 +22,30 @@
 				>
 			</tr>
 			<tr class="bg-purple-50">
-				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Shareholder</th>
-				<th class="border border-gray-300 px-4 py-2 text-center text-gray-800">Ownership %</th>
-				<th class="border border-gray-300 px-4 py-2 text-right text-gray-800"
-					>Distribution Amount (₱)</th
-				>
-				<th class="border border-gray-300 px-4 py-2 text-center text-gray-800">Status</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">
+					<div class="flex items-center">
+						Shareholder
+						<InfoIcon content="Property owner or investor name" position="bottom" size={14} />
+					</div>
+				</th>
+				<th class="border border-gray-300 px-4 py-2 text-center text-gray-800">
+					<div class="flex items-center justify-center">
+						Ownership %
+						<InfoIcon content="Percentage of property ownership" position="bottom" size={14} />
+					</div>
+				</th>
+				<th class="border border-gray-300 px-4 py-2 text-right text-gray-800">
+					<div class="flex items-center justify-end">
+						Distribution Amount (₱)
+						<InfoIcon content="Share of net income based on ownership percentage" position="bottom" size={14} />
+					</div>
+				</th>
+				<th class="border border-gray-300 px-4 py-2 text-center text-gray-800">
+					<div class="flex items-center justify-center">
+						Status
+						<InfoIcon content="Distribution payment status" position="bottom" size={14} />
+					</div>
+				</th>
 			</tr>
 		</thead>
 		<tbody>

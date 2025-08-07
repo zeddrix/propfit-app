@@ -9,9 +9,10 @@
 
 	interface Props {
 		expenses: Expenses;
+		onupdateExpense?: (event: CustomEvent<UpdateExpenseEvent>) => void;
 	}
 
-	const { expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 } }: Props =
+	const { expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 }, onupdateExpense }: Props =
 		$props();
 
 	const dispatch = createEventDispatcher<{
@@ -40,9 +41,15 @@
 				>
 			</tr>
 			<tr class="bg-orange-50">
-				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Expense Type</th>
-				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Amount (₱)</th>
-				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">Notes</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">
+					Expense Type
+				</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">
+					Amount (₱)
+				</th>
+				<th class="border border-gray-300 px-4 py-2 text-left text-gray-800">
+					Notes
+				</th>
 			</tr>
 		</thead>
 		<tbody>

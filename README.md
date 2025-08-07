@@ -93,17 +93,57 @@ All 12 requested tasks have been successfully implemented using Test-Driven Deve
 
 ## 🧪 Testing
 
-Run the test suite:
+PropFit follows strict Test-Driven Development (TDD) principles with comprehensive test coverage:
+
+### Running Tests
 
 ```bash
+# Run unit tests
 pnpm test
-```
 
-Run tests with coverage:
-
-```bash
+# Run tests with coverage
 pnpm run test:coverage
+
+# Run tests in watch mode (for development)
+pnpm test:watch
 ```
+
+### Testing Philosophy
+
+All features in PropFit are developed using TDD methodology following the strict guidelines in `unit-testing-rules.md`:
+
+- **Red-Green-Refactor Cycle**: Tests written first, then implementation, then optimization
+- **Behavior-Focused Testing**: Tests verify what the code does, not how it does it
+- **Comprehensive Coverage**: Unit tests, integration tests, and component tests
+- **Edge Case Testing**: Boundary conditions and error scenarios covered
+- **Maintainable Tests**: Tests remain valid when implementation changes
+
+### Test Coverage
+
+- ✅ Core calculation logic (13/13 tests)
+- ✅ Component functionality and user interactions
+- ✅ Store management and data persistence
+- ✅ Integration testing for complete workflows
+- ✅ Monthly reset functionality
+- ✅ Export functionality (PDF/Excel)
+- ✅ Settings management and theme switching
+
+### TDD Implementation Status
+
+All 12 major enhancement tasks were completed using strict TDD approach:
+
+1. ✅ Editable tenant names with real-time persistence
+2. ✅ Separate unit tables for different property types
+3. ✅ Quick amount input with 1000-step increments
+4. ✅ Enhanced user interactions with cursor styling
+5. ✅ Mark All Paid bulk operation functionality
+6. ✅ Dynamic tenant management with undo functionality
+7. ✅ Comprehensive localStorage integration
+8. ✅ Smart rent calculation for shared units
+9. ✅ Development performance optimization
+10. ✅ Code quality enforcement (ESLint/Prettier)
+11. ✅ Complete documentation suite
+12. ✅ TDD workflow documentation and guidelines
 
 ## 🏗️ Building for Production
 
@@ -123,9 +163,26 @@ pnpm preview
 
 ### GitHub Pages (Recommended)
 
-1. **Push to GitHub** - Ensure your code is in a GitHub repository
-2. **Enable GitHub Pages** - Go to repository Settings > Pages > Select "GitHub Actions"
-3. **Automatic Deployment** - The included workflow will automatically deploy on pushes to main branch
+The PropFit application is optimized for GitHub Pages deployment with a complete CI/CD pipeline:
+
+1. **Automatic Deployment**: Push to main branch triggers automatic deployment
+2. **Static Generation**: Full pre-rendering for optimal performance
+3. **Base Path Configuration**: Properly configured for `username.github.io/repository-name` format
+4. **Asset Optimization**: Chunked assets with optimal caching strategy
+
+#### GitHub Pages Setup
+
+1. **Enable GitHub Pages** - Go to repository Settings > Pages > Select "GitHub Actions"
+2. **Automatic Deployment** - The included workflow automatically deploys on pushes to main branch
+3. **Access your app** - Visit `https://username.github.io/propfit-app`
+
+#### Key Configuration Features
+
+- ✅ Static adapter with proper base path configuration
+- ✅ Comprehensive prerendering for all routes
+- ✅ `.nojekyll` file to prevent Jekyll processing
+- ✅ Optimized asset chunking for better caching
+- ✅ GitHub Actions workflow for automated deployment
 
 ### Manual Deployment
 
@@ -133,6 +190,15 @@ Deploy to GitHub Pages manually:
 
 ```bash
 pnpm run deploy
+```
+
+### Local Development with GitHub Pages Simulation
+
+Test the GitHub Pages build locally:
+
+```bash
+pnpm build
+pnpm preview
 ```
 
 ## 📊 Usage Guide
@@ -167,15 +233,17 @@ The application comes pre-configured with:
 ## 🛠️ Technology Stack
 
 - **Framework**: SvelteKit 5 with Runes Mode
-- **Language**: TypeScript
-- **Styling**: TailwindCSS v4
-- **Testing**: Vitest + Testing Library
+- **Language**: TypeScript with strict type checking
+- **Styling**: TailwindCSS v4 with custom design system
+- **Testing**: Vitest + Testing Library (TDD approach)
 - **Package Manager**: pnpm
 - **Icons**: Lucide Svelte
 - **PDF Generation**: jsPDF + jsPDF-AutoTable
 - **Excel Export**: SheetJS (xlsx)
 - **State Management**: Svelte Stores with LocalStorage persistence
-- **Deployment**: GitHub Pages (Static Adapter)
+- **Deployment**: GitHub Pages with Static Adapter
+- **Development**: Hot Module Replacement (HMR) optimized
+- **Code Quality**: ESLint + Prettier + TypeScript strict mode
 
 ## 📁 Project Structure
 

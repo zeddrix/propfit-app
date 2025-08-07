@@ -1,7 +1,9 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import type { Tenant, Expenses, Shareholder } from '$lib/types/index.js';
 	import ActionButtons from './ActionButtons.svelte';
-	import { Settings } from 'lucide-svelte';
+	import Tooltip from './Tooltip.svelte';
+	import { Settings, Menu, X } from 'lucide-svelte';
 
 	interface Props {
 		tenants: Tenant[];
@@ -11,6 +13,7 @@
 		notes: string;
 		preparedBy: string;
 		onreset?: () => void;
+		onopenSettings?: () => void;
 	}
 
 	const {
@@ -20,8 +23,13 @@
 		currentMonth = '',
 		notes = '',
 		preparedBy = '',
-		onreset
+		onreset,
+		onopenSettings
 	}: Props = $props();
+
+	const dispatch = createEventDispatcher<{
+		openSettings: void;
+	}>();
 
 	let mobileMenuOpen = $state(false);
 
@@ -32,31 +40,37 @@
 	function closeMobileMenu() {
 		mobileMenuOpen = false;
 	}
+
+	function openSettings() {
+		if (onopenSettings) {
+			onopenSettings();
+		}
+		closeMobileMenu();
+	}
 </script>
 
 <nav
-	class="sticky top-0 z-50 bg-white dark:bg-slate-900 shadow-lg border-b border-gray-200 dark:border-slate-700 print:hidden backdrop-blur-sm bg-white/95 dark:bg-slate-900/95"
+	class="sticky top-0 z-50 bg-white/95 dark:bg-slate-900/95 shadow-lg border-b border-gray-200 dark:border-slate-700 print:hidden backdrop-blur-md"
 >
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="flex justify-between items-center h-16">
+		<div class="flex justify-between items-center h-20">
 			<!-- Logo/Brand -->
-			<div class="flex items-center">
+			<div class="flex items-center space-x-4">
 				<div class="flex-shrink-0">
-					<h1 class="text-xl font-bold text-gray-800 dark:text-white">PropFit</h1>
-					<p class="text-xs text-gray-500 dark:text-slate-400">Rental Management</p>
+					<div class="flex items-center space-x-3">
+						<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+							<span class="text-white font-bold text-lg">P</span>
+						</div>
+						<div>
+							<h1 class="text-2xl font-bold text-gray-900 dark:text-white">PropFit</h1>
+							<p class="text-sm text-gray-500 dark:text-slate-400 font-medium">Rental Management</p>
+						</div>
+					</div>
 				</div>
 			</div>
 
-			<!-- Desktop Action Buttons -->
-			<div class="hidden md:flex md:items-center md:space-x-4">
-				<a
-					href="/settings"
-					class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-					title="Settings"
-					aria-label="Go to Settings"
-				>
-					<Settings class="w-5 h-5 text-gray-600" />
-				</a>
+			<!-- Center Action Buttons (Desktop) -->
+			<div class="hidden md:flex md:items-center">
 				<ActionButtons
 					{tenants}
 					{expenses}
@@ -68,71 +82,71 @@
 				/>
 			</div>
 
+			<!-- Right side - Settings (Desktop) -->
+			<div class="hidden md:flex md:items-center">
+				<button
+					onclick={openSettings}
+					class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+					aria-label="Open Settings"
+					title="Application Settings"
+				>
+					<Settings class="w-5 h-5 text-gray-600 dark:text-slate-300 group-hover:scale-110 transition-transform duration-200" />
+				</button>
+			</div>
+
 			<!-- Mobile menu button -->
 			<div class="md:hidden">
 				<button
 					type="button"
-					class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500 transition-colors"
+					class="inline-flex items-center justify-center p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-sm hover:shadow-md"
 					onclick={toggleMobileMenu}
 					aria-expanded={mobileMenuOpen}
 					aria-label="Toggle main menu"
 				>
-					<!-- Hamburger icon with smooth transition -->
-					<svg
-						class="h-6 w-6 transition-transform duration-200 {mobileMenuOpen ? 'rotate-90' : ''}"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-					>
-						{#if !mobileMenuOpen}
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M4 6h16M4 12h16M4 18h16"
-							/>
-						{:else}
-							<path
-								stroke-linecap="round"
-								stroke-linejoin="round"
-								stroke-width="2"
-								d="M6 18L18 6M6 6l12 12"
-							/>
-						{/if}
-					</svg>
+					{#if !mobileMenuOpen}
+						<Menu class="h-6 w-6" />
+					{:else}
+						<X class="h-6 w-6" />
+					{/if}
 				</button>
 			</div>
 		</div>
 
 		<!-- Mobile menu with smooth animation -->
 		{#if mobileMenuOpen}
-			<div class="md:hidden border-t border-gray-200 pt-4 pb-6 animate-slideDown">
-				<div class="space-y-4">
-					<div class="flex justify-center gap-4">
-						<a
-							href="/settings"
-							class="p-2 rounded-lg bg-slate-100 hover:bg-slate-200 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-							title="Settings"
-							aria-label="Go to Settings"
+			<div class="md:hidden border-t border-gray-200 dark:border-slate-700 pt-6 pb-8 animate-slideDown">
+				<div class="space-y-6">
+					<!-- Mobile Settings -->
+					<div class="flex justify-center">
+						<button
+							onclick={openSettings}
+							class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+							aria-label="Open Settings"
+							title="Application Settings"
 						>
-							<Settings class="w-5 h-5 text-gray-600" />
-						</a>
+							<Settings class="w-5 h-5 text-gray-600 dark:text-slate-300 group-hover:scale-110 transition-transform duration-200" />
+						</button>
 					</div>
-					<ActionButtons
-						{tenants}
-						{expenses}
-						{shareholders}
-						{currentMonth}
-						{notes}
-						{preparedBy}
-						{onreset}
-					/>
+					
+					<!-- Mobile Action Buttons -->
+					<div class="px-4">
+						<ActionButtons
+							{tenants}
+							{expenses}
+							{shareholders}
+							{currentMonth}
+							{notes}
+							{preparedBy}
+							{onreset}
+						/>
+					</div>
 				</div>
+				
 				<!-- Close button for mobile menu -->
-				<div class="mt-4 flex justify-center">
+				<div class="mt-6 flex justify-center">
 					<button
 						onclick={closeMobileMenu}
-						class="text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200"
+						class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
 					>
 						Close Menu
 					</button>
@@ -152,7 +166,7 @@
 	@keyframes slideDown {
 		from {
 			opacity: 0;
-			transform: translateY(-10px);
+			transform: translateY(-20px);
 		}
 		to {
 			opacity: 1;
@@ -161,12 +175,29 @@
 	}
 
 	:global(.animate-slideDown) {
-		animation: slideDown 0.2s ease-out;
+		animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 	}
 
-	/* Ensure sticky navbar has proper backdrop blur support */
+	/* Enhanced backdrop blur support */
 	nav {
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+	}
+
+	/* Ensure proper stacking context */
+	nav {
+		position: relative;
+		z-index: 50;
+	}
+
+	/* Add subtle gradient border */
+	nav::after {
+		content: '';
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		height: 1px;
+		background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
 	}
 </style>

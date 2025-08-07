@@ -31,7 +31,7 @@ export default defineConfig({
 						return `assets/css/[name].[hash][extname]`;
 					}
 					return `assets/[name].[hash][extname]`;
-				},
+				}
 			}
 		}
 	},

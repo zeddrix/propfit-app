@@ -14,7 +14,7 @@
 		tenants: Tenant[];
 	}
 
-	let { tenants = [] }: Props = $props();
+	const { tenants = [] }: Props = $props();
 
 	const dispatch = createEventDispatcher<{
 		updateTenant: UpdateTenantEvent;

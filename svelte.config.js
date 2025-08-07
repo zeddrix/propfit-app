@@ -14,12 +14,15 @@ const config = {
 			precompress: false,
 			strict: true
 		}),
+		appDir: 'internal',
 		paths: {
-			base: process.env.BASE_PATH || '',
+			base: '/propfit-app', // Fixed base path for GitHub Pages subdirectory deployment
 			relative: false
 		},
 		prerender: {
-			handleHttpError: 'warn'
+			handleHttpError: 'warn',
+			crawl: true,
+			entries: ['*']
 		}
 	}
 };

@@ -5,6 +5,7 @@
 		shareholders,
 		currentMonth,
 		monthlyNotes,
+		preparedBy,
 		resetToDefaults
 	} from '$lib/stores/rentalData.js';
 	import { calculateNetIncome, calculateTotalCollected } from '$lib/utils/calculations.js';
@@ -14,7 +15,8 @@
 	import ExpenseTable from '$lib/components/ExpenseTable.svelte';
 	import SummarySection from '$lib/components/SummarySection.svelte';
 	import ShareholderTable from '$lib/components/ShareholderTable.svelte';
-	import ActionButtons from '$lib/components/ActionButtons.svelte';
+	import NavigationBar from '$lib/components/NavigationBar.svelte';
+	import Tooltip from '$lib/components/Tooltip.svelte';
 
 	let currentTenants: Tenant[] = [];
 	let currentExpenses: Expenses = {
@@ -27,6 +29,7 @@
 	let currentShareholders: Shareholder[] = [];
 	let currentMonthValue: string = '';
 	let currentNotes: string = '';
+	let currentPreparedBy: string = '';
 
 	// Subscribe to stores
 	$: currentTenants = $tenants;
@@ -34,6 +37,7 @@
 	$: currentShareholders = $shareholders;
 	$: currentMonthValue = $currentMonth;
 	$: currentNotes = $monthlyNotes;
+	$: currentPreparedBy = $preparedBy;
 
 	// Calculated values
 	$: totalCollected = calculateTotalCollected(currentTenants.map((t) => t.payment));
@@ -61,6 +65,11 @@
 		currentMonth.set(target.value);
 	}
 
+	function handlePreparedByChange(event: Event) {
+		const target = event.target as HTMLSelectElement;
+		preparedBy.set(target.value);
+	}
+
 	function handleNotesChange(event: Event) {
 		const target = event.target as HTMLTextAreaElement;
 		monthlyNotes.set(target.value);
@@ -80,31 +89,51 @@
 	>
 </svelte:head>
 
-<div class="container mx-auto px-4 py-8 max-w-7xl">
+<!-- Navigation Bar -->
+<NavigationBar
+	tenants={currentTenants}
+	expenses={currentExpenses}
+	shareholders={currentShareholders}
+	currentMonth={currentMonthValue}
+	notes={currentNotes}
+	preparedBy={currentPreparedBy}
+	onreset={handleReset}
+/>
+
+<div class="container mx-auto px-4 py-8 max-w-7xl bg-white min-h-screen">
 	<!-- Header -->
 	<div class="text-center mb-8">
 		<h1 class="text-3xl font-bold text-gray-800 mb-4">Rental Property Management</h1>
 
-		<div class="flex items-center justify-center gap-4 mb-6">
-			<label for="month-selector" class="text-lg font-medium text-gray-700">Month:</label>
-			<input
-				id="month-selector"
-				type="month"
-				value={currentMonthValue}
-				onchange={handleMonthChange}
-				class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-			/>
-		</div>
+		<div class="flex items-center justify-center gap-6 mb-6">
+			<div class="flex items-center gap-2">
+				<label for="month-selector" class="text-lg font-medium text-gray-700">Month:</label>
+				<input
+					id="month-selector"
+					type="month"
+					value={currentMonthValue}
+					onchange={handleMonthChange}
+					class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-800"
+				/>
+			</div>
 
-		<!-- Action Buttons -->
-		<ActionButtons
-			tenants={currentTenants}
-			expenses={currentExpenses}
-			shareholders={currentShareholders}
-			currentMonth={currentMonthValue}
-			notes={currentNotes}
-			onreset={handleReset}
-		/>
+			<div class="flex items-center gap-2">
+				<label for="prepared-by-selector" class="text-lg font-medium text-gray-700"
+					>Prepared by:</label
+				>
+				<select
+					id="prepared-by-selector"
+					value={currentPreparedBy}
+					onchange={handlePreparedByChange}
+					class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white text-gray-800"
+				>
+					<option value="">Select preparer...</option>
+					{#each currentShareholders as shareholder (shareholder.name)}
+						<option value={shareholder.name}>{shareholder.name}</option>
+					{/each}
+				</select>
+			</div>
+		</div>
 	</div>
 
 	<!-- Tenant Payments -->
@@ -115,7 +144,13 @@
 
 	<!-- Expenses -->
 	<div class="mb-8">
-		<h2 class="text-xl font-bold text-gray-800 mb-4">Monthly Expenses</h2>
+		<div class="flex items-center gap-2 mb-4">
+			<h2 class="text-xl font-bold text-gray-800">Monthly Expenses</h2>
+			<Tooltip
+				content="Track monthly property expenses including utilities, maintenance, and other operational costs. These expenses are deducted from total rent collected to calculate net income for distribution."
+				position="right"
+			/>
+		</div>
 		<ExpenseTable expenses={currentExpenses} onupdateExpense={handleExpenseUpdate} />
 	</div>
 
@@ -126,7 +161,13 @@
 
 	<!-- Shareholder Distribution -->
 	<div class="mb-8">
-		<h2 class="text-xl font-bold text-gray-800 mb-4">Profit Distribution</h2>
+		<div class="flex items-center gap-2 mb-4">
+			<h2 class="text-xl font-bold text-gray-800">Profit Distribution</h2>
+			<Tooltip
+				content="Net income distribution among shareholders based on their ownership percentages. Net income = Total rent collected - Total expenses."
+				position="right"
+			/>
+		</div>
 		<ShareholderTable shareholders={currentShareholders} {netIncome} />
 	</div>
 
@@ -138,7 +179,7 @@
 				value={currentNotes}
 				oninput={handleNotesChange}
 				rows="4"
-				class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
+				class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical bg-white text-gray-800"
 				placeholder="Add notes about this month's rental activities, maintenance issues, tenant communications, etc."
 			></textarea>
 		</div>

@@ -89,25 +89,25 @@
 			<h3 class="text-lg font-semibold text-gray-800">Unit 1 (2 pax) - studio type 1</h3>
 		</div>
 
-		<table class="w-full border-collapse border border-gray-300">
+		<table class="w-full border-collapse border border-pink-200 rounded-xl overflow-hidden shadow-lg">
 			<thead>
-				<tr class="bg-green-500 text-white">
-					<th class="border border-gray-300 px-4 py-2 text-left">
+				<tr class="bg-gradient-to-r from-pink-300 to-rose-300 text-white">
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Unit/Tenant
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Monthly Rent (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Amount Paid (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Payment Date
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Balance (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Status
 					</th>
 				</tr>
@@ -115,19 +115,19 @@
 			<tbody>
 				{#each unit1Tenants as tenant (tenant.id)}
 					{@const calculation = getTenantCalculation(tenant)}
-					<tr class="hover:bg-gray-50">
-						<td class="border border-gray-300 px-4 py-2 font-medium">
+					<tr class="hover:bg-pink-50 bg-white transition-colors border-pink-100">
+						<td class="border border-pink-200 px-4 py-3 font-medium">
 							<input
 								type="text"
-								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-gray-300"
+								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-pink-300 rounded-lg"
 								value={tenant.name}
 								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2 text-right"
+						<td class="border border-pink-200 px-4 py-3 text-right"
 							>{formatCurrency(tenant.rent)}</td
 						>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-pink-200 px-4 py-3">
 							<input
 								type="number"
 								class="table-input text-right cursor-pointer"
@@ -138,7 +138,7 @@
 									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-pink-200 px-4 py-3">
 							<input
 								type="date"
 								class="table-input cursor-pointer"
@@ -146,17 +146,17 @@
 								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2 text-right font-mono">
+						<td class="border border-pink-200 px-4 py-3 text-right font-mono">
 							{formatCurrency(Math.abs(calculation.balance))}
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-pink-200 px-4 py-3">
 							<span
-								class="px-2 py-1 rounded-full text-xs font-medium
+								class="px-3 py-1 rounded-full text-xs font-medium
 								{calculation.status === 'Paid'
-									? 'bg-green-100 text-green-800'
+									? 'bg-emerald-100 text-emerald-800'
 									: calculation.status === 'Pending'
-										? 'bg-yellow-100 text-yellow-800'
-										: 'bg-blue-100 text-blue-800'}"
+										? 'bg-amber-100 text-amber-800'
+										: 'bg-sky-100 text-sky-800'}"
 							>
 								{calculation.status}
 							</span>
@@ -180,34 +180,34 @@
 			</div>
 			<button
 				onclick={() => addTenant('Unit 2 (6 pax) - studio type 2')}
-				class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+				class="cursor-pointer bg-gradient-to-r from-violet-400 to-purple-400 hover:from-violet-500 hover:to-purple-500 text-white px-6 py-2 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
 			>
 				Add Tenant
 			</button>
 		</div>
 
-		<table class="w-full border-collapse border border-gray-300">
+		<table class="w-full border-collapse border border-violet-200 rounded-xl overflow-hidden shadow-lg">
 			<thead>
-				<tr class="bg-green-500 text-white">
-					<th class="border border-gray-300 px-4 py-2 text-left">
+				<tr class="bg-gradient-to-r from-violet-300 to-purple-300 text-white">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Unit/Tenant
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Monthly Rent (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Amount Paid (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Payment Date
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Balance (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Status
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Actions
 					</th>
 				</tr>
@@ -215,19 +215,19 @@
 			<tbody>
 				{#each unit2Tenants as tenant (tenant.id)}
 					{@const calculation = getTenantCalculation(tenant)}
-					<tr class="hover:bg-gray-50">
-						<td class="border border-gray-300 px-4 py-2 font-medium">
+					<tr class="hover:bg-violet-50 bg-white transition-colors border-violet-100">
+						<td class="border border-violet-200 px-4 py-3 font-medium">
 							<input
 								type="text"
-								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-gray-300"
+								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-violet-300 rounded-lg"
 								value={tenant.name}
 								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2 text-right"
+						<td class="border border-violet-200 px-4 py-3 text-right"
 							>{formatCurrency(tenant.rent)}</td
 						>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-violet-200 px-4 py-3">
 							<input
 								type="number"
 								class="table-input text-right cursor-pointer"
@@ -238,7 +238,7 @@
 									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-violet-200 px-4 py-3">
 							<input
 								type="date"
 								class="table-input cursor-pointer"
@@ -246,25 +246,25 @@
 								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2 text-right font-mono">
+						<td class="border border-violet-200 px-4 py-3 text-right font-mono">
 							{formatCurrency(Math.abs(calculation.balance))}
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-violet-200 px-4 py-3">
 							<span
-								class="px-2 py-1 rounded-full text-xs font-medium
+								class="px-3 py-1 rounded-full text-xs font-medium
 								{calculation.status === 'Paid'
-									? 'bg-green-100 text-green-800'
+									? 'bg-emerald-100 text-emerald-800'
 									: calculation.status === 'Pending'
-										? 'bg-yellow-100 text-yellow-800'
-										: 'bg-blue-100 text-blue-800'}"
+										? 'bg-amber-100 text-amber-800'
+										: 'bg-sky-100 text-sky-800'}"
 							>
 								{calculation.status}
 							</span>
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-violet-200 px-4 py-3">
 							<button
 								onclick={() => handleRemoveTenant(tenant.id)}
-								class="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+								class="cursor-pointer bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 							>
 								Remove
 							</button>
@@ -288,34 +288,34 @@
 			</div>
 			<button
 				onclick={handleAddTenant}
-				class="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+				class="cursor-pointer bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-500 hover:to-teal-500 text-white px-6 py-2 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
 			>
 				Add Tenant
 			</button>
 		</div>
 
-		<table class="w-full border-collapse border border-gray-300">
+		<table class="w-full border-collapse border border-cyan-200 rounded-xl overflow-hidden shadow-lg">
 			<thead>
-				<tr class="bg-green-500 text-white">
-					<th class="border border-gray-300 px-4 py-2 text-left">
+				<tr class="bg-gradient-to-r from-cyan-300 to-teal-300 text-white">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Unit/Tenant
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Monthly Rent (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Amount Paid (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Payment Date
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Balance (₱)
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Status
 					</th>
-					<th class="border border-gray-300 px-4 py-2 text-left">
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Actions
 					</th>
 				</tr>
@@ -323,19 +323,19 @@
 			<tbody>
 				{#each unit3Tenants as tenant (tenant.id)}
 					{@const calculation = getTenantCalculation(tenant)}
-					<tr class="hover:bg-gray-50">
-						<td class="border border-gray-300 px-4 py-2 font-medium">
+					<tr class="hover:bg-cyan-50 bg-white transition-colors border-cyan-100">
+						<td class="border border-cyan-200 px-4 py-3 font-medium">
 							<input
 								type="text"
-								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-gray-300"
+								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-cyan-300 rounded-lg"
 								value={tenant.name}
 								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2 text-right"
+						<td class="border border-cyan-200 px-4 py-3 text-right"
 							>{formatCurrency(tenant.rent)}</td
 						>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-cyan-200 px-4 py-3">
 							<input
 								type="number"
 								class="table-input text-right cursor-pointer"
@@ -346,7 +346,7 @@
 									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-cyan-200 px-4 py-3">
 							<input
 								type="date"
 								class="table-input cursor-pointer"
@@ -354,25 +354,25 @@
 								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
 							/>
 						</td>
-						<td class="border border-gray-300 px-4 py-2 text-right font-mono">
+						<td class="border border-cyan-200 px-4 py-3 text-right font-mono">
 							{formatCurrency(Math.abs(calculation.balance))}
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-cyan-200 px-4 py-3">
 							<span
-								class="px-2 py-1 rounded-full text-xs font-medium
+								class="px-3 py-1 rounded-full text-xs font-medium
 								{calculation.status === 'Paid'
-									? 'bg-green-100 text-green-800'
+									? 'bg-emerald-100 text-emerald-800'
 									: calculation.status === 'Pending'
-										? 'bg-yellow-100 text-yellow-800'
-										: 'bg-blue-100 text-blue-800'}"
+										? 'bg-amber-100 text-amber-800'
+										: 'bg-sky-100 text-sky-800'}"
 							>
 								{calculation.status}
 							</span>
 						</td>
-						<td class="border border-gray-300 px-4 py-2">
+						<td class="border border-cyan-200 px-4 py-3">
 							<button
 								onclick={() => handleRemoveTenant(tenant.id)}
-								class="cursor-pointer bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm transition-colors"
+								class="cursor-pointer bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 							>
 								Remove
 							</button>
@@ -386,18 +386,18 @@
 	<!-- Undo Toast -->
 	{#if showUndoToast && undoTenant}
 		<div
-			class="fixed bottom-4 right-4 bg-gray-800 text-white px-6 py-3 rounded-lg shadow-lg z-50 flex items-center gap-3"
+			class="fixed bottom-4 right-4 bg-slate-800 text-white px-6 py-3 rounded-xl shadow-2xl z-50 flex items-center gap-3 backdrop-blur-md border border-slate-600"
 		>
 			<span>Removed {undoTenant.name}</span>
 			<button
 				onclick={handleUndo}
-				class="cursor-pointer bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm transition-colors"
+				class="cursor-pointer bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-500 hover:to-indigo-500 px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 			>
 				Undo
 			</button>
 			<button
 				onclick={dismissToast}
-				class="cursor-pointer text-gray-300 hover:text-white transition-colors"
+				class="cursor-pointer text-gray-300 hover:text-white transition-colors p-1 rounded-md hover:bg-slate-700"
 			>
 				✕
 			</button>
@@ -408,19 +408,37 @@
 <style>
 	.table-input {
 		width: 100%;
-		padding: 0.5rem;
-		border: 1px solid #d1d5db;
-		border-radius: 0.375rem;
+		padding: 0.75rem;
+		border: 1px solid #e5e7eb;
+		border-radius: 0.75rem;
 		background-color: white;
+		transition: all 0.2s ease-in-out;
+		cursor: pointer;
 	}
 
 	.table-input:focus {
 		outline: none;
-		box-shadow: 0 0 0 2px #3b82f6;
-		border-color: transparent;
+		box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+		border-color: #8b5cf6;
+		transform: scale(1.02);
+	}
+
+	.table-input:hover {
+		border-color: #d1d5db;
+		background-color: #fafafa;
 	}
 
 	button {
 		cursor: pointer;
+	}
+
+	/* Enhanced animations */
+	@keyframes gentle-bounce {
+		0%, 100% { transform: translateY(0); }
+		50% { transform: translateY(-2px); }
+	}
+
+	.table-input:focus {
+		animation: gentle-bounce 0.3s ease-in-out;
 	}
 </style>

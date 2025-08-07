@@ -118,7 +118,7 @@
 				</div>
 				<button
 					onclick={closeModal}
-					class="text-gray-400 hover:text-gray-600 dark:text-slate-400 dark:hover:text-slate-200 transition-all duration-200 p-2 rounded-xl hover:bg-white/80 dark:hover:bg-slate-700/80 shadow-sm hover:shadow-md group"
+					class="text-gray-400 hover:text-gray-600 dark:text-slate-400 dark:hover:text-slate-200 transition-all duration-200 p-2 rounded-xl hover:bg-white/80 dark:hover:bg-slate-700/80 shadow-sm hover:shadow-md group cursor-pointer"
 					aria-label="Close settings"
 				>
 					<X class="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
@@ -143,14 +143,14 @@
 						<div class="flex flex-wrap gap-4">
 							<button
 								onclick={handleExportPdf}
-								class="inline-flex items-center gap-3 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium"
+								class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium cursor-pointer"
 							>
 								<Download class="w-5 h-5" />
 								Export PDF
 							</button>
 							<button
 								onclick={handleExportExcel}
-								class="inline-flex items-center gap-3 px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium"
+								class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-emerald-400 to-green-400 hover:from-emerald-500 hover:to-green-500 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium cursor-pointer"
 							>
 								<Download class="w-5 h-5" />
 								Export Excel
@@ -180,7 +180,7 @@
 						</div>
 						<button
 							onclick={handleReset}
-							class="inline-flex items-center gap-3 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium"
+							class="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 font-medium cursor-pointer"
 						>
 							<RotateCcw class="w-5 h-5" />
 							Reset to Defaults
@@ -202,7 +202,7 @@
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div class="bg-white/70 dark:bg-slate-700/50 rounded-xl p-4 backdrop-blur-sm">
 							<h4 class="font-semibold text-gray-800 dark:text-white mb-1">Version</h4>
-							<p class="text-gray-600 dark:text-slate-300">PropFit v1.0</p>
+							<p class="text-gray-600 dark:text-slate-300">PropFit v2.0</p>
 						</div>
 						<div class="bg-white/70 dark:bg-slate-700/50 rounded-xl p-4 backdrop-blur-sm">
 							<h4 class="font-semibold text-gray-800 dark:text-white mb-1">Theme</h4>

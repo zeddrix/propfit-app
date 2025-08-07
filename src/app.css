@@ -17,8 +17,8 @@
 			'Helvetica Neue',
 			sans-serif;
 		transition:
-			background-color 0.2s ease-in-out,
-			color 0.2s ease-in-out;
+			background-color 0.3s ease-in-out,
+			color 0.3s ease-in-out;
 	}
 
 	/* Light mode (default) */
@@ -32,52 +32,189 @@
 		background-color: inherit;
 		color: inherit;
 	}
+
+	/* Custom scrollbar for webkit browsers */
+	::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+
+	::-webkit-scrollbar-track {
+		background: #f1f5f9;
+		border-radius: 4px;
+	}
+
+	::-webkit-scrollbar-thumb {
+		background: linear-gradient(180deg, #e2e8f0 0%, #cbd5e1 100%);
+		border-radius: 4px;
+	}
+
+	::-webkit-scrollbar-thumb:hover {
+		background: linear-gradient(180deg, #cbd5e1 0%, #94a3b8 100%);
+	}
 }
 
+/* Enhanced button styles with pastels */
 .btn-primary {
-	background-color: theme('colors.blue.600');
-	color: theme('colors.white');
-	padding: theme('spacing.2') theme('spacing.4');
-	border-radius: theme('borderRadius.lg');
-	transition: background-color 0.2s;
+	background: linear-gradient(135deg, #60a5fa 0%, #3b82f6 100%);
+	color: white;
+	padding: theme('spacing.3') theme('spacing.6');
+	border-radius: theme('borderRadius.xl');
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	cursor: pointer;
 	border: none;
+	font-weight: 600;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .btn-primary:hover {
-	background-color: theme('colors.blue.700');
+	background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+	transform: translateY(-2px);
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-secondary {
-	background-color: theme('colors.gray.600');
-	color: theme('colors.white');
-	padding: theme('spacing.2') theme('spacing.4');
-	border-radius: theme('borderRadius.lg');
-	transition: background-color 0.2s;
+	background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
+	color: #374151;
+	padding: theme('spacing.3') theme('spacing.6');
+	border-radius: theme('borderRadius.xl');
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 	cursor: pointer;
 	border: none;
+	font-weight: 600;
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .btn-secondary:hover {
-	background-color: theme('colors.gray.700');
+	background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+	transform: translateY(-2px);
+	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
+/* Enhanced table input styles */
 .table-input {
 	width: 100%;
-	padding: theme('spacing.1') theme('spacing.2');
+	padding: theme('spacing.3') theme('spacing.4');
 	font-size: theme('fontSize.sm');
-	border: 1px solid theme('colors.gray.300');
-	border-radius: theme('borderRadius.DEFAULT');
-	background-color: white;
+	border: 2px solid transparent;
+	border-radius: theme('borderRadius.xl');
+	background: linear-gradient(white, white) padding-box,
+		linear-gradient(135deg, #e2e8f0, #f1f5f9) border-box;
 	color: theme('colors.gray.800');
-	transition:
-		background-color 0.2s ease-in-out,
-		border-color 0.2s ease-in-out,
-		color 0.2s ease-in-out;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	cursor: pointer;
 }
 
 .table-input:focus {
 	outline: none;
-	box-shadow: 0 0 0 2px theme('colors.blue.500');
-	border-color: transparent;
+	background: linear-gradient(white, white) padding-box,
+		linear-gradient(135deg, #60a5fa, #3b82f6) border-box;
+	transform: scale(1.02);
+	box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+.table-input:hover:not(:focus) {
+	background: linear-gradient(#fafafa, #fafafa) padding-box,
+		linear-gradient(135deg, #cbd5e1, #e2e8f0) border-box;
+}
+
+/* Beautiful animations */
+@keyframes gentle-float {
+	0%, 100% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-4px);
+	}
+}
+
+@keyframes pulse-subtle {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.8;
+	}
+}
+
+@keyframes gradient-shift {
+	0%, 100% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+}
+
+/* Apply animations to interactive elements */
+.animate-float {
+	animation: gentle-float 3s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+	animation: pulse-subtle 2s ease-in-out infinite;
+}
+
+.animate-gradient {
+	background-size: 200% 200%;
+	animation: gradient-shift 4s ease infinite;
+}
+
+/* Enhanced card styles */
+.card-elevated {
+	background: rgba(255, 255, 255, 0.8);
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: theme('borderRadius.2xl');
+	box-shadow: 
+		0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 10px 10px -5px rgba(0, 0, 0, 0.04),
+		0 0 0 1px rgba(255, 255, 255, 0.1) inset;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevated:hover {
+	transform: translateY(-4px);
+	box-shadow: 
+		0 25px 50px -12px rgba(0, 0, 0, 0.15),
+		0 20px 25px -5px rgba(0, 0, 0, 0.1),
+		0 0 0 1px rgba(255, 255, 255, 0.2) inset;
+}
+
+/* Glass morphism effect */
+.glass {
+	background: rgba(255, 255, 255, 0.25);
+	backdrop-filter: blur(16px);
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Enhanced focus styles for accessibility */
+*:focus-visible {
+	outline: 2px solid #3b82f6;
+	outline-offset: 2px;
+	border-radius: theme('borderRadius.lg');
+}
+
+/* Custom checkbox and radio styles */
+input[type="checkbox"],
+input[type="radio"] {
+	cursor: pointer;
+	transform: scale(1.1);
+	transition: transform 0.2s ease;
+}
+
+input[type="checkbox"]:hover,
+input[type="radio"]:hover {
+	transform: scale(1.2);
+}
+
+/* Enhanced selection styles */
+::selection {
+	background: rgba(59, 130, 246, 0.2);
+	color: #1e40af;
+}
+
+::-moz-selection {
+	background: rgba(59, 130, 246, 0.2);
+	color: #1e40af;
 }

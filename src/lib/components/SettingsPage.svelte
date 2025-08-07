@@ -156,7 +156,7 @@
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 						<div>
 							<h4 class="font-medium text-gray-800">Version</h4>
-							<p class="text-gray-600">PropFit v1.0</p>
+							<p class="text-gray-600">PropFit v2.0</p>
 						</div>
 						<div>
 							<h4 class="font-medium text-gray-800">Theme</h4>

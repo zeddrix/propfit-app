@@ -38,7 +38,7 @@
 					<span
 						class="bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full text-xs font-medium"
 					>
-						PropFit v1.0
+						PropFit v2.0
 					</span>
 				</div>
 			</div>

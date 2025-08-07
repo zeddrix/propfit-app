@@ -58,7 +58,7 @@
 	<Tooltip content="Download PDF Report">
 		<button
 			onclick={handlePdfExport}
-			class="p-3 rounded-xl bg-red-50 hover:bg-red-100 dark:bg-red-900/30 dark:hover:bg-red-900/50 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+			class="p-3 rounded-xl bg-rose-100 hover:bg-rose-200 dark:bg-rose-900/30 dark:hover:bg-rose-900/50 text-rose-700 dark:text-rose-400 hover:text-rose-800 dark:hover:text-rose-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:ring-offset-2 shadow-sm hover:shadow-md group cursor-pointer"
 			aria-label="Download PDF report"
 		>
 			<Download size={20} class="group-hover:scale-110 transition-transform duration-200" />
@@ -69,7 +69,7 @@
 	<Tooltip content="Download Excel Spreadsheet">
 		<button
 			onclick={handleExcelExport}
-			class="p-3 rounded-xl bg-green-50 hover:bg-green-100 dark:bg-green-900/30 dark:hover:bg-green-900/50 text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+			class="p-3 rounded-xl bg-emerald-100 hover:bg-emerald-200 dark:bg-emerald-900/30 dark:hover:bg-emerald-900/50 text-emerald-700 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 shadow-sm hover:shadow-md group cursor-pointer"
 			aria-label="Download Excel spreadsheet"
 		>
 			<FileSpreadsheet size={20} class="group-hover:scale-110 transition-transform duration-200" />
@@ -80,7 +80,7 @@
 	<Tooltip content="Print Report">
 		<button
 			onclick={handlePrint}
-			class="p-3 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-900/30 dark:hover:bg-blue-900/50 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+			class="p-3 rounded-xl bg-sky-100 hover:bg-sky-200 dark:bg-sky-900/30 dark:hover:bg-sky-900/50 text-sky-700 dark:text-sky-400 hover:text-sky-800 dark:hover:text-sky-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 shadow-sm hover:shadow-md group cursor-pointer"
 			aria-label="Print current page"
 		>
 			<Printer size={20} class="group-hover:scale-110 transition-transform duration-200" />
@@ -91,7 +91,7 @@
 	<Tooltip content="Reset All Data">
 		<button
 			onclick={handleReset}
-			class="p-3 rounded-xl bg-gray-50 hover:bg-gray-100 dark:bg-gray-800/50 dark:hover:bg-gray-700/50 text-gray-600 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+			class="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/50 dark:hover:bg-slate-700/50 text-slate-700 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-300 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 shadow-sm hover:shadow-md group cursor-pointer"
 			aria-label="Reset all data (this action cannot be undone)"
 		>
 			<RotateCcw size={20} class="group-hover:scale-110 transition-transform duration-200" />

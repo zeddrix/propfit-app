@@ -69,8 +69,8 @@
 				</div>
 			</div>
 
-			<!-- Center Action Buttons (Desktop) -->
-			<div class="hidden md:flex md:items-center">
+			<!-- Right side - Action Buttons and Settings (Desktop) -->
+			<div class="hidden md:flex md:items-center md:gap-4">
 				<ActionButtons
 					{tenants}
 					{expenses}
@@ -80,13 +80,9 @@
 					{preparedBy}
 					{onreset}
 				/>
-			</div>
-
-			<!-- Right side - Settings (Desktop) -->
-			<div class="hidden md:flex md:items-center">
 				<button
 					onclick={openSettings}
-					class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+					class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group cursor-pointer"
 					aria-label="Open Settings"
 					title="Application Settings"
 				>
@@ -98,7 +94,7 @@
 			<div class="md:hidden">
 				<button
 					type="button"
-					class="inline-flex items-center justify-center p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-sm hover:shadow-md"
+					class="inline-flex items-center justify-center p-3 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-gray-100 dark:text-slate-400 dark:hover:text-slate-200 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-200 shadow-sm hover:shadow-md cursor-pointer"
 					onclick={toggleMobileMenu}
 					aria-expanded={mobileMenuOpen}
 					aria-label="Toggle main menu"
@@ -120,7 +116,7 @@
 					<div class="flex justify-center">
 						<button
 							onclick={openSettings}
-							class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group"
+							class="p-3 rounded-xl bg-slate-50 hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 shadow-sm hover:shadow-md group cursor-pointer"
 							aria-label="Open Settings"
 							title="Application Settings"
 						>
@@ -146,7 +142,7 @@
 				<div class="mt-6 flex justify-center">
 					<button
 						onclick={closeMobileMenu}
-						class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800"
+						class="px-4 py-2 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-slate-300 transition-colors duration-200 rounded-lg hover:bg-gray-100 dark:hover:bg-slate-800 cursor-pointer"
 					>
 						Close Menu
 					</button>

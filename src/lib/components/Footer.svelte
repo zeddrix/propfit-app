@@ -11,7 +11,7 @@
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 		<div class="flex flex-col md:flex-row justify-center items-center space-y-4 md:space-y-0">
 			<!-- Copyright -->
-			<div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+			<div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mr-4">
 				<span>© {currentYear} Zeddrix Fabian</span>
 				<span class="text-gray-400 dark:text-gray-500">•</span>
 				<span class="flex items-center gap-1">

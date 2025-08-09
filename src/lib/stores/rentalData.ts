@@ -66,7 +66,7 @@ function calculateUnit2Rent(tenants: Tenant[]): number {
 	return perPersonRent;
 }
 
-function updateUnitRents(tenants: Tenant[]): Tenant[] {
+export function updateUnitRents(tenants: Tenant[]): Tenant[] {
 	const unit3Rent = calculateUnit3Rent(tenants);
 	const unit2Rent = calculateUnit2Rent(tenants);
 
@@ -87,15 +87,6 @@ const defaultTenants: Tenant[] = [
 		name: 'Franz',
 		unit: 'Unit 1 (2 pax) - studio type 1',
 		rent: 2000,
-		payment: 0,
-		paymentDate: '',
-		notes: ''
-	},
-	{
-		id: 'ging',
-		name: 'Ging Bagro',
-		unit: 'Unit 2 (6 pax) - studio type 2',
-		rent: 1000,
 		payment: 0,
 		paymentDate: '',
 		notes: ''
@@ -159,9 +150,12 @@ function createPersistentStore<T>(storageKey: string, defaultValue: T) {
 	const initialValue = loadFromStorage(storageKey, defaultValue);
 	const store = writable<T>(initialValue);
 
-	// Save to localStorage on every update
+	// Save to localStorage on every update, with browser environment check
 	store.subscribe((value) => {
-		saveToStorage(storageKey, value);
+		// Only save if we're in the browser environment
+		if (browser) {
+			saveToStorage(storageKey, value);
+		}
 	});
 
 	return store;
@@ -271,8 +265,8 @@ function checkAndResetMonthlyData(): void {
 				localStorage.removeItem(STORAGE_KEYS.EXPENSES);
 				localStorage.removeItem(STORAGE_KEYS.MONTHLY_NOTES);
 				localStorage.removeItem(STORAGE_KEYS.PREPARED_BY);
-			} catch (error) {
-				console.warn('Failed to clear localStorage during monthly reset:', error);
+			} catch {
+				// Fail silently
 			}
 		}
 

@@ -7,9 +7,14 @@
 		monthlyNotes,
 		preparedBy,
 		resetToDefaults,
-		markAllPaid
+		markAllPaid,
+		updateUnitRents
 	} from '$lib/stores/rentalData.js';
-	import { calculateNetIncome, calculateTotalCollected } from '$lib/utils/calculations.js';
+	import {
+		calculateNetIncome,
+		calculateTotalCollected,
+		calculateTenantBalance
+	} from '$lib/utils/calculations.js';
 	import type { Tenant, Expenses, Shareholder } from '$lib/types/index.js';
 
 	import TenantTable from '$lib/components/TenantTable.svelte';
@@ -37,9 +42,31 @@
 		event: CustomEvent<{ tenantId: string; field: keyof Tenant; value: string | number }>
 	) {
 		const { tenantId, field, value } = event.detail;
-		tenants.update((tenantList) =>
-			tenantList.map((tenant) => (tenant.id === tenantId ? { ...tenant, [field]: value } : tenant))
-		);
+		
+		// First update the tenant with the new value
+		tenants.update((tenantList) => {
+			let updatedList = tenantList.map((tenant) => 
+				tenant.id === tenantId ? { ...tenant, [field]: value } : tenant
+			);
+
+			// If payment was updated, update the status based on payment vs rent
+			if (field === 'payment') {
+				updatedList = updatedList.map(tenant => {
+					if (tenant.id === tenantId) {
+						// Calculate the balance first
+						const payment = Number(value) || 0;
+						const balance = tenant.rent - payment;
+						// Set status based on whether payment covers the full rent
+						const status = payment >= tenant.rent ? 'Paid' : 'Pending';
+						return { ...tenant, status, balance };
+					}
+					return tenant;
+				});
+			}
+
+			// Update unit rents and return the final list
+			return updateUnitRents(updatedList);
+		});
 	}
 
 	function handleExpenseUpdate(event: CustomEvent<{ field: keyof Expenses; value: number }>) {

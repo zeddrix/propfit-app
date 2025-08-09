@@ -3,6 +3,11 @@
 	import { calculateTenantBalance, formatCurrency } from '$lib/utils/calculations.js';
 	import { addTenant, removeTenant, restoreTenant } from '$lib/stores/rentalData.js';
 	import type { Tenant } from '$lib/types/index.js';
+
+	function handlePaymentChange(tenantId: string, currentPayment: number, change: number) {
+		const newPayment = Math.max(0, (currentPayment || 0) + change);
+		updateTenantField(tenantId, 'payment', newPayment);
+	}
 	import InfoIcon from './InfoIcon.svelte';
 
 	interface UpdateTenantEvent {
@@ -121,29 +126,68 @@
 								type="text"
 								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-pink-300 rounded-lg"
 								value={tenant.name}
-								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
+								on:input={(e) => {
+									e.stopPropagation();
+									updateTenantField(tenant.id, 'name', e.currentTarget.value);
+								}}
 							/>
 						</td>
 						<td class="border border-pink-200 px-4 py-3 text-right"
 							>{formatCurrency(tenant.rent)}</td
 						>
 						<td class="border border-pink-200 px-4 py-3">
-							<input
-								type="number"
-								class="table-input text-right cursor-pointer"
-								value={tenant.payment}
-								min="0"
-								step="1000"
-								oninput={(e) =>
-									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
-							/>
+							<div class="number-input-container">
+								<input
+									type="number"
+									class="table-input text-right cursor-pointer pr-10"
+									value={tenant.payment}
+									min="0"
+									step="1000"
+									on:input={(e) => {
+										e.stopPropagation();
+										const value = parseFloat(e.currentTarget.value) || 0;
+										updateTenantField(tenant.id, 'payment', value);
+									}}
+								/>
+								<div class="spinner-buttons">
+									<button 
+										class="spinner-btn up" 
+										on:click={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
+										}}
+										aria-label="Increase by 1000"
+									>
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M18 15l-6-6-6 6"/>
+										</svg>
+									</button>
+									<button 
+										class="spinner-btn down" 
+										on:click={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
+										}}
+										aria-label="Decrease by 1000"
+									>
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M6 9l6 6 6-6"/>
+										</svg>
+									</button>
+								</div>
+							</div>
 						</td>
 						<td class="border border-pink-200 px-4 py-3">
 							<input
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
+								on:input={(e) => {
+									e.stopPropagation();
+									updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
+								}}
 							/>
 						</td>
 						<td class="border border-pink-200 px-4 py-3 text-right font-mono">
@@ -179,7 +223,11 @@
 				/>
 			</div>
 			<button
-				onclick={() => addTenant('Unit 2 (6 pax) - studio type 2')}
+				on:click={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					addTenant('Unit 2 (6 pax) - studio type 2');
+				}}
 				class="cursor-pointer bg-gradient-to-r from-violet-400 to-purple-400 hover:from-violet-500 hover:to-purple-500 text-white px-6 py-2 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
 			>
 				Add Tenant
@@ -221,29 +269,68 @@
 								type="text"
 								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-violet-300 rounded-lg"
 								value={tenant.name}
-								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
+								on:input={(e) => {
+									e.stopPropagation();
+									updateTenantField(tenant.id, 'name', e.currentTarget.value);
+								}}
 							/>
 						</td>
 						<td class="border border-violet-200 px-4 py-3 text-right"
 							>{formatCurrency(tenant.rent)}</td
 						>
 						<td class="border border-violet-200 px-4 py-3">
-							<input
-								type="number"
-								class="table-input text-right cursor-pointer"
-								value={tenant.payment}
-								min="0"
-								step="1000"
-								oninput={(e) =>
-									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
-							/>
+							<div class="number-input-container">
+								<input
+									type="number"
+									class="table-input text-right cursor-pointer pr-10"
+									value={tenant.payment}
+									min="0"
+									step="1000"
+									on:input={(e) => {
+										e.stopPropagation();
+										const value = parseFloat(e.currentTarget.value) || 0;
+										updateTenantField(tenant.id, 'payment', value);
+									}}
+								/>
+								<div class="spinner-buttons">
+									<button 
+										class="spinner-btn up" 
+										on:click={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
+										}}
+										aria-label="Increase by 1000"
+									>
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M18 15l-6-6-6 6"/>
+										</svg>
+									</button>
+									<button 
+										class="spinner-btn down" 
+										on:click={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
+										}}
+										aria-label="Decrease by 1000"
+									>
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M6 9l6 6 6-6"/>
+										</svg>
+									</button>
+								</div>
+							</div>
 						</td>
 						<td class="border border-violet-200 px-4 py-3">
 							<input
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
+								on:input={(e) => {
+									e.stopPropagation();
+									updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
+								}}
 							/>
 						</td>
 						<td class="border border-violet-200 px-4 py-3 text-right font-mono">
@@ -263,7 +350,11 @@
 						</td>
 						<td class="border border-violet-200 px-4 py-3">
 							<button
-								onclick={() => handleRemoveTenant(tenant.id)}
+								on:click={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									handleRemoveTenant(tenant.id);
+								}}
 								class="cursor-pointer bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 							>
 								Remove
@@ -287,7 +378,11 @@
 				/>
 			</div>
 			<button
-				onclick={handleAddTenant}
+				on:click={(e) => {
+					e.preventDefault();
+					e.stopPropagation();
+					handleAddTenant();
+				}}
 				class="cursor-pointer bg-gradient-to-r from-cyan-400 to-teal-400 hover:from-cyan-500 hover:to-teal-500 text-white px-6 py-2 rounded-xl text-sm font-medium transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
 			>
 				Add Tenant
@@ -329,29 +424,68 @@
 								type="text"
 								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-cyan-300 rounded-lg"
 								value={tenant.name}
-								oninput={(e) => updateTenantField(tenant.id, 'name', e.currentTarget.value)}
+								on:input={(e) => {
+									e.stopPropagation();
+									updateTenantField(tenant.id, 'name', e.currentTarget.value);
+								}}
 							/>
 						</td>
 						<td class="border border-cyan-200 px-4 py-3 text-right"
 							>{formatCurrency(tenant.rent)}</td
 						>
 						<td class="border border-cyan-200 px-4 py-3">
-							<input
-								type="number"
-								class="table-input text-right cursor-pointer"
-								value={tenant.payment}
-								min="0"
-								step="1000"
-								oninput={(e) =>
-									updateTenantField(tenant.id, 'payment', parseFloat(e.currentTarget.value) || 0)}
-							/>
+							<div class="number-input-container">
+								<input
+									type="number"
+									class="table-input text-right cursor-pointer pr-10"
+									value={tenant.payment}
+									min="0"
+									step="1000"
+									on:input={(e) => {
+										e.stopPropagation();
+										const value = parseFloat(e.currentTarget.value) || 0;
+										updateTenantField(tenant.id, 'payment', value);
+									}}
+								/>
+								<div class="spinner-buttons">
+									<button 
+										class="spinner-btn up" 
+										on:click={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
+										}}
+										aria-label="Increase by 1000"
+									>
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M18 15l-6-6-6 6"/>
+										</svg>
+									</button>
+									<button 
+										class="spinner-btn down" 
+										on:click={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
+										}}
+										aria-label="Decrease by 1000"
+									>
+										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M6 9l6 6 6-6"/>
+										</svg>
+									</button>
+								</div>
+							</div>
 						</td>
 						<td class="border border-cyan-200 px-4 py-3">
 							<input
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-								oninput={(e) => updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value)}
+							on:input={(e) => {
+							e.stopPropagation();
+							updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
+						}}
 							/>
 						</td>
 						<td class="border border-cyan-200 px-4 py-3 text-right font-mono">
@@ -371,7 +505,9 @@
 						</td>
 						<td class="border border-cyan-200 px-4 py-3">
 							<button
-								onclick={() => handleRemoveTenant(tenant.id)}
+								on:click={() => {
+							handleRemoveTenant(tenant.id);
+						}}
 								class="cursor-pointer bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 							>
 								Remove
@@ -390,7 +526,7 @@
 		>
 			<span>Removed {undoTenant.name}</span>
 			<button
-				onclick={handleUndo}
+				on:click={handleUndo}
 				class="cursor-pointer bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-500 hover:to-indigo-500 px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 			>
 				Undo
@@ -406,9 +542,30 @@
 </div>
 
 <style>
+	/* Custom number input container */
+	.number-input-container {
+		position: relative;
+		display: inline-block;
+		width: 100%;
+	}
+
+	/* Hide default number input spinners */
+	input[type='number'] {
+		-moz-appearance: textfield;
+		appearance: textfield;
+	}
+
+	/* Hide WebKit spinners */
+	input[type='number']::-webkit-inner-spin-button,
+	input[type='number']::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	/* Style for the input field */
 	.table-input {
 		width: 100%;
-		padding: 0.75rem;
+		padding: 0.75rem 2.5rem 0.75rem 0.75rem;
 		border: 1px solid #e5e7eb;
 		border-radius: 0.75rem;
 		background-color: white;
@@ -428,8 +585,69 @@
 		background-color: #fafafa;
 	}
 
-	button {
+	/* Custom spinner buttons */
+	.spinner-buttons {
+		position: absolute;
+		top: 0;
+		right: 0.5rem;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		pointer-events: none;
+	}
+
+	.spinner-btn {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 1.5rem;
+		height: 1.25rem;
+		background: #f3f4f6;
+		border: 1px solid #d1d5db;
+		color: #4b5563;
 		cursor: pointer;
+		transition: all 0.2s ease;
+		pointer-events: auto;
+	}
+
+	.spinner-btn:hover {
+		background: #e5e7eb;
+	}
+
+	.spinner-btn.up {
+		border-radius: 0.25rem 0.25rem 0 0;
+		border-bottom: none;
+	}
+
+	.spinner-btn.down {
+		border-radius: 0 0 0.25rem 0.25rem;
+	}
+
+	.spinner-btn svg {
+		width: 1rem;
+		height: 1rem;
+	}
+
+	.spinner-btn:hover svg {
+		color: #8b5cf6;
+	}
+
+	/* Responsive adjustments */
+	@media (max-width: 640px) {
+		.spinner-buttons {
+			right: 0.25rem;
+		}
+		
+		.spinner-btn {
+			width: 1.25rem;
+			height: 1rem;
+		}
+		
+		.spinner-btn svg {
+			width: 0.75rem;
+			height: 0.75rem;
+		}
 	}
 
 	/* Enhanced animations */

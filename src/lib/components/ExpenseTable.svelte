@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Expenses } from '$lib/types/index.js';
+	import NumberInput from './NumberInput.svelte';
 
 	interface UpdateExpenseEvent {
 		field: keyof Expenses;
@@ -11,8 +12,10 @@
 		onupdateExpense?: (event: CustomEvent<UpdateExpenseEvent>) => void;
 	}
 
-	const { expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 }, onupdateExpense }: Props =
-		$props();
+	const {
+		expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 },
+		onupdateExpense
+	}: Props = $props();
 
 	function updateExpense(field: keyof Expenses, value: number) {
 		onupdateExpense?.({ detail: { field, value } } as CustomEvent<UpdateExpenseEvent>);
@@ -25,14 +28,35 @@
 		maintenance: 'Maintenance & Repairs',
 		other: 'Other Expenses'
 	};
+
+	// Define color scheme for the expense inputs
+	const expenseColorScheme = {
+		border: 'border-amber-200',
+		borderHover: 'border-amber-300',
+		borderFocus: 'border-amber-500',
+		bg: 'bg-white',
+		bgHover: 'bg-amber-50',
+		bgFocus: 'bg-amber-50',
+		text: 'text-gray-800',
+		buttonBg: 'bg-amber-50',
+		buttonBorder: 'border-amber-200',
+		buttonHover: 'bg-amber-100',
+		buttonText: 'text-amber-600',
+		buttonHoverText: 'text-amber-800',
+		shadow: 'shadow-amber-100',
+		shadowHover: 'shadow-amber-200'
+	};
 </script>
 
 <div class="overflow-x-auto">
-	<table class="w-full border-collapse border border-orange-200 rounded-xl overflow-hidden shadow-lg">
+	<table
+		class="w-full border-collapse border border-orange-200 rounded-xl overflow-hidden shadow-lg"
+	>
 		<thead>
 			<tr class="bg-gradient-to-r from-orange-300 to-amber-300">
-				<th class="border border-orange-200 px-6 py-4 text-left text-white font-semibold" colspan="3"
-					>Monthly Expenses</th
+				<th
+					class="border border-orange-200 px-6 py-4 text-left text-white font-semibold"
+					colspan="3">Monthly Expenses</th
 				>
 			</tr>
 			<tr class="bg-gradient-to-r from-orange-100 to-amber-100">
@@ -51,38 +75,18 @@
 			{#each Object.keys(expenseLabels) as expenseKey (expenseKey)}
 				{@const key = expenseKey as keyof Expenses}
 				<tr class="hover:bg-orange-50 bg-white transition-all duration-200">
-					<td class="border border-orange-200 px-6 py-4 text-gray-800 font-medium">{expenseLabels[key]}</td>
+					<td class="border border-orange-200 px-6 py-4 text-gray-800 font-medium"
+						>{expenseLabels[key]}</td
+					>
 					<td class="border border-orange-200 px-6 py-4">
-						<div class="number-input-container">
-							<input
-								type="number"
-								class="expense-input text-right"
-								value={expenses[key] || 0}
-								min="0"
-								step="0.01"
-								oninput={(e) => updateExpense(key, parseFloat(e.currentTarget.value) || 0)}
-							/>
-							<div class="spinner-buttons">
-								<button 
-									class="spinner-btn up"
-									onclick={() => updateExpense(key, (expenses[key] || 0) + 100)}
-									tabindex="-1"
-								>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-										<path fill-rule="evenodd" d="M14.77 12.79a.75.75 0 01-1.06-.02L10 8.832 6.29 12.77a.75.75 0 11-1.08-1.04l4.25-4.5a.75.75 0 011.08 0l4.25 4.5a.75.75 0 01-.02 1.06z" clip-rule="evenodd" />
-									</svg>
-								</button>
-								<button 
-									class="spinner-btn down"
-									onclick={() => updateExpense(key, Math.max(0, (expenses[key] || 0) - 100))}
-									tabindex="-1"
-								>
-									<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-										<path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-									</svg>
-								</button>
-							</div>
-						</div>
+						<NumberInput
+							value={expenses[key] || 0}
+							on:change={(e) => updateExpense(key, e.detail)}
+							step={100}
+							min={0}
+							colorScheme={expenseColorScheme}
+							class="w-full text-right"
+						/>
 					</td>
 					<td class="border border-orange-200 px-6 py-4">
 						<input type="text" class="expense-input cursor-pointer" placeholder="Add notes..." />
@@ -196,12 +200,12 @@
 		.spinner-buttons {
 			right: 0.25rem;
 		}
-		
+
 		.spinner-btn {
 			width: 1.25rem;
 			height: 1rem;
 		}
-		
+
 		.spinner-btn svg {
 			width: 0.75rem;
 			height: 0.75rem;
@@ -210,8 +214,13 @@
 
 	/* Enhanced animations */
 	@keyframes gentle-bounce {
-		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-2px); }
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-2px);
+		}
 	}
 
 	.expense-input:focus {

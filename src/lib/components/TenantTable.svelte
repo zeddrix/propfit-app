@@ -2,11 +2,59 @@
 	import { calculateTenantBalance, formatCurrency } from '$lib/utils/calculations.js';
 	import { addTenant, removeTenant, restoreTenant } from '$lib/stores/rentalData.js';
 	import type { Tenant } from '$lib/types/index.js';
+	import NumberInput from './NumberInput.svelte';
 
-	function handlePaymentChange(tenantId: string, currentPayment: number, change: number) {
-		const newPayment = Math.max(0, (currentPayment || 0) + change);
-		updateTenantField(tenantId, 'payment', newPayment);
-	}
+	// Color schemes for each unit
+	const unit1ColorScheme = {
+		border: 'border-pink-200',
+		borderHover: 'border-pink-300',
+		borderFocus: 'border-pink-500',
+		bg: 'bg-white',
+		bgHover: 'bg-pink-50',
+		bgFocus: 'bg-pink-50',
+		text: 'text-gray-800',
+		buttonBg: 'bg-pink-50',
+		buttonBorder: 'border-pink-200',
+		buttonHover: 'bg-pink-100',
+		buttonText: 'text-pink-600',
+		buttonHoverText: 'text-pink-800',
+		shadow: 'shadow-pink-100',
+		shadowHover: 'shadow-pink-200',
+	};
+
+	const unit2ColorScheme = {
+		border: 'border-violet-200',
+		borderHover: 'border-violet-300',
+		borderFocus: 'border-violet-500',
+		bg: 'bg-white',
+		bgHover: 'bg-violet-50',
+		bgFocus: 'bg-violet-50',
+		text: 'text-gray-800',
+		buttonBg: 'bg-violet-50',
+		buttonBorder: 'border-violet-200',
+		buttonHover: 'bg-violet-100',
+		buttonText: 'text-violet-600',
+		buttonHoverText: 'text-violet-800',
+		shadow: 'shadow-violet-100',
+		shadowHover: 'shadow-violet-200',
+	};
+
+	const unit3ColorScheme = {
+		border: 'border-cyan-200',
+		borderHover: 'border-cyan-300',
+		borderFocus: 'border-cyan-500',
+		bg: 'bg-white',
+		bgHover: 'bg-cyan-50',
+		bgFocus: 'bg-cyan-50',
+		text: 'text-gray-800',
+		buttonBg: 'bg-cyan-50',
+		buttonBorder: 'border-cyan-200',
+		buttonHover: 'bg-cyan-100',
+		buttonText: 'text-cyan-600',
+		buttonHoverText: 'text-cyan-800',
+		shadow: 'shadow-cyan-100',
+		shadowHover: 'shadow-cyan-200',
+	};
 	import InfoIcon from './InfoIcon.svelte';
 
 	interface UpdateTenantEvent {
@@ -131,48 +179,14 @@
 							>{formatCurrency(tenant.rent)}</td
 						>
 						<td class="border border-pink-200 px-4 py-3">
-							<div class="number-input-container">
-								<input
-									type="number"
-									class="table-input text-right cursor-pointer pr-10"
-									value={tenant.payment}
-									min="0"
-									step="1000"
-									oninput={(e) => {
-										e.stopPropagation();
-										const value = parseFloat(e.currentTarget.value) || 0;
-										updateTenantField(tenant.id, 'payment', value);
-									}}
-								/>
-								<div class="spinner-buttons">
-									<button 
-										class="spinner-btn up" 
-										onclick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
-										}}
-										aria-label="Increase by 1000"
-									>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M18 15l-6-6-6 6"/>
-										</svg>
-									</button>
-									<button 
-										class="spinner-btn down" 
-										onclick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
-										}}
-										aria-label="Decrease by 1000"
-									>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M6 9l6 6 6-6"/>
-										</svg>
-									</button>
-								</div>
-							</div>
+							<NumberInput
+								value={tenant.payment}
+								on:change={(e) => updateTenantField(tenant.id, 'payment', e.detail)}
+								step={1000}
+								min={0}
+								colorScheme={unit1ColorScheme}
+								class="w-full text-right"
+							/>
 						</td>
 						<td class="border border-pink-200 px-4 py-3">
 							<input
@@ -274,48 +288,14 @@
 							>{formatCurrency(tenant.rent)}</td
 						>
 						<td class="border border-violet-200 px-4 py-3">
-							<div class="number-input-container">
-								<input
-									type="number"
-									class="table-input text-right cursor-pointer pr-10"
-									value={tenant.payment}
-									min="0"
-									step="1000"
-									oninput={(e) => {
-										e.stopPropagation();
-										const value = parseFloat(e.currentTarget.value) || 0;
-										updateTenantField(tenant.id, 'payment', value);
-									}}
-								/>
-								<div class="spinner-buttons">
-									<button 
-										class="spinner-btn up" 
-										onclick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
-										}}
-										aria-label="Increase by 1000"
-									>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M18 15l-6-6-6 6"/>
-										</svg>
-									</button>
-									<button 
-										class="spinner-btn down" 
-										onclick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
-										}}
-										aria-label="Decrease by 1000"
-									>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M6 9l6 6 6-6"/>
-										</svg>
-									</button>
-								</div>
-							</div>
+							<NumberInput
+								value={tenant.payment}
+								on:change={(e) => updateTenantField(tenant.id, 'payment', e.detail)}
+								step={1000}
+								min={0}
+								colorScheme={unit2ColorScheme}
+								class="w-full text-right"
+							/>
 						</td>
 						<td class="border border-violet-200 px-4 py-3">
 							<input
@@ -429,48 +409,14 @@
 							>{formatCurrency(tenant.rent)}</td
 						>
 						<td class="border border-cyan-200 px-4 py-3">
-							<div class="number-input-container">
-								<input
-									type="number"
-									class="table-input text-right cursor-pointer pr-10"
-									value={tenant.payment}
-									min="0"
-									step="1000"
-									oninput={(e) => {
-										e.stopPropagation();
-										const value = parseFloat(e.currentTarget.value) || 0;
-										updateTenantField(tenant.id, 'payment', value);
-									}}
-								/>
-								<div class="spinner-buttons">
-									<button 
-										class="spinner-btn up" 
-										onclick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
-										}}
-										aria-label="Increase by 1000"
-									>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M18 15l-6-6-6 6"/>
-										</svg>
-									</button>
-									<button 
-										class="spinner-btn down" 
-										onclick={(e) => {
-											e.preventDefault();
-											e.stopPropagation();
-											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
-										}}
-										aria-label="Decrease by 1000"
-									>
-										<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-											<path d="M6 9l6 6 6-6"/>
-										</svg>
-									</button>
-								</div>
-							</div>
+							<NumberInput
+								value={tenant.payment}
+								on:change={(e) => updateTenantField(tenant.id, 'payment', e.detail)}
+								step={1000}
+								min={0}
+								colorScheme={unit3ColorScheme}
+								class="w-full text-right"
+							/>
 						</td>
 						<td class="border border-cyan-200 px-4 py-3">
 							<input

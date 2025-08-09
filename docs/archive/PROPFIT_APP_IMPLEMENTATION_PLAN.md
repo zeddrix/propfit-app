@@ -674,7 +674,7 @@ cat > src/lib/components/TenantTable.svelte << 'EOL'
               value={tenant.payment}
               min="0"
               step="0.01"
-              on:input={(e) => updatePayment(tenant.id, 'payment', parseFloat(e.target.value) || 0)}
+              oninput={(e) => updatePayment(tenant.id, 'payment', parseFloat(e.target.value) || 0)}
             />
           </td>
           <td class="border border-gray-300 px-4 py-2">
@@ -682,7 +682,7 @@ cat > src/lib/components/TenantTable.svelte << 'EOL'
               type="date"
               class="table-input"
               value={tenant.paymentDate}
-              on:input={(e) => updatePayment(tenant.id, 'paymentDate', e.target.value)}
+              oninput={(e) => updatePayment(tenant.id, 'paymentDate', e.target.value)}
             />
           </td>
           <td class="border border-gray-300 px-4 py-2 text-right font-mono">
@@ -752,7 +752,7 @@ cat > src/lib/components/ExpenseTable.svelte << 'EOL'
               value={expenses[expenseKey] || 0}
               min="0"
               step="0.01"
-              on:input={(e) => updateExpense(expenseKey, parseFloat(e.target.value) || 0)}
+              oninput={(e) => updateExpense(expenseKey, parseFloat(e.target.value) || 0)}
             />
           </td>
           <td class="border border-gray-300 px-4 py-2">
@@ -1116,22 +1116,22 @@ cat > src/lib/components/ActionButtons.svelte << 'EOL'
 </script>
 
 <div class="flex flex-wrap gap-4 justify-center mb-6">
-  <button on:click={handlePdfExport} class="btn-primary flex items-center gap-2">
+  <button onclick={handlePdfExport} class="btn-primary flex items-center gap-2">
     <Download size={16} />
     Download PDF
   </button>
 
-  <button on:click={handleExcelExport} class="btn-primary flex items-center gap-2">
+  <button onclick={handleExcelExport} class="btn-primary flex items-center gap-2">
     <Download size={16} />
     Download Excel
   </button>
 
-  <button on:click={handlePrint} class="btn-secondary flex items-center gap-2">
+  <button onclick={handlePrint} class="btn-secondary flex items-center gap-2">
     <Printer size={16} />
     Print
   </button>
 
-  <button on:click={handleReset} class="btn-secondary flex items-center gap-2">
+  <button onclick={handleReset} class="btn-secondary flex items-center gap-2">
     <RotateCcw size={16} />
     Reset Data
   </button>
@@ -1283,7 +1283,7 @@ cat > src/routes/+page.svelte << 'EOL'
     <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-500">
       <textarea
         value={currentNotes}
-        on:input={handleNotesChange}
+        oninput={handleNotesChange}
         rows="4"
         class="w-full p-4 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-vertical"
         placeholder="Add notes about this month's rental activities, maintenance issues, tenant communications, etc."

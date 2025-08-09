@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import type { Expenses } from '$lib/types/index.js';
 
 	interface UpdateExpenseEvent {
@@ -15,12 +14,8 @@
 	const { expenses = { internet: 0, water: 0, electricity: 0, maintenance: 0, other: 0 }, onupdateExpense }: Props =
 		$props();
 
-	const dispatch = createEventDispatcher<{
-		updateExpense: UpdateExpenseEvent;
-	}>();
-
 	function updateExpense(field: keyof Expenses, value: number) {
-		dispatch('updateExpense', { field, value });
+		onupdateExpense?.({ detail: { field, value } } as CustomEvent<UpdateExpenseEvent>);
 	}
 
 	const expenseLabels: Record<keyof Expenses, string> = {

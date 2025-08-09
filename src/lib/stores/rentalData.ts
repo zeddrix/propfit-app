@@ -140,9 +140,9 @@ const defaultExpenses: Expenses = {
 
 // Default shareholder data
 const defaultShareholders: Shareholder[] = [
-	{ name: 'Maru Fabian', percentage: 35 },
-	{ name: 'Ruby Fabian', percentage: 35 },
-	{ name: 'Zeddrix Fabian', percentage: 30 }
+	{ name: 'Maru Fabian', percentage: 35, status: 'Pending' },
+	{ name: 'Ruby Fabian', percentage: 35, status: 'Pending' },
+	{ name: 'Zeddrix Fabian', percentage: 30, status: 'Pending' }
 ];
 
 // Create stores with localStorage integration

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatCurrency, calculateShareholderDistribution } from '$lib/utils/calculations.js';
+	import { shareholders } from '$lib/stores/rentalData.js';
 	import type { Shareholder } from '$lib/types/index.js';
 	import InfoIcon from './InfoIcon.svelte';
 
@@ -8,9 +9,25 @@
 		netIncome: number;
 	}
 
-	const { shareholders = [], netIncome = 0 }: Props = $props();
+	const { netIncome = 0 }: Props = $props();
 
-	const distributionData = $derived(calculateShareholderDistribution(netIncome, shareholders));
+	// Get the current value of the store
+	const currentShareholders = $derived($shareholders);
+
+	// Calculate distribution based on current shareholders
+	const distributionData = $derived(calculateShareholderDistribution(netIncome, currentShareholders));
+
+	// Function to update shareholder status
+	function updateShareholderStatus(name: string, status: 'Pending' | 'Paid') {
+		shareholders.update(current => {
+			const updated = [...current];
+			const index = updated.findIndex(s => s.name === name);
+			if (index !== -1) {
+				updated[index] = { ...updated[index], status };
+			}
+			return updated;
+		});
+	}
 </script>
 
 <div class="overflow-x-auto">
@@ -68,9 +85,15 @@
 						>{formatCurrency(shareholder.amount)}</td
 					>
 					<td class="border border-purple-200 px-6 py-4 text-center">
-						<select class="shareholder-select text-sm cursor-pointer">
-							<option>Pending</option>
-							<option>Paid</option>
+						<select 
+							class="shareholder-select text-sm cursor-pointer bg-white border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+							value={shareholder.status}
+							on:change={(e) => {
+								updateShareholderStatus(shareholder.name, e.target.value);
+							}}
+						>
+							<option value="Pending" selected={shareholder.status === 'Pending'} class="bg-white text-gray-800">Pending</option>
+							<option value="Paid" selected={shareholder.status === 'Paid'} class="bg-white text-gray-800">Paid</option>
 						</select>
 					</td>
 				</tr>

@@ -20,6 +20,7 @@ export interface Expenses {
 export interface Shareholder {
 	name: string;
 	percentage: number;
+	status?: 'Pending' | 'Paid';
 }
 
 export interface ShareholderWithAmount extends Shareholder {

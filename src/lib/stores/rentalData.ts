@@ -239,6 +239,14 @@ export function resetToDefaults(): void {
 	monthlyNotes.set('');
 	preparedBy.set('');
 	currentMonth.set(new Date().toISOString().slice(0, 7));
+
+	// Reset all shareholder statuses to 'Pending'
+	shareholders.update((current) =>
+		current.map((shareholder) => ({
+			...shareholder,
+			status: 'Pending'
+		}))
+	);
 }
 
 // Monthly reset functionality
@@ -276,6 +284,14 @@ function checkAndResetMonthlyData(): void {
 		monthlyNotes.set('');
 		preparedBy.set('');
 		currentMonth.set(currentMonthValue);
+
+		// Reset all shareholder statuses to 'Pending'
+		shareholders.update((current) =>
+			current.map((shareholder) => ({
+				...shareholder,
+				status: 'Pending'
+			}))
+		);
 	}
 
 	// Update the last reset month

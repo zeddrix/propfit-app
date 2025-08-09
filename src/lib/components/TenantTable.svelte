@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import { calculateTenantBalance, formatCurrency } from '$lib/utils/calculations.js';
 	import { addTenant, removeTenant, restoreTenant } from '$lib/stores/rentalData.js';
 	import type { Tenant } from '$lib/types/index.js';
@@ -23,10 +22,6 @@
 
 	const { tenants = [], onupdateTenant }: Props = $props();
 
-	const dispatch = createEventDispatcher<{
-		updateTenant: UpdateTenantEvent;
-	}>();
-
 	let showUndoToast = $state(false);
 	let undoTenant: Tenant | null = $state(null);
 	let undoTimeout: ReturnType<typeof setTimeout> | null = $state(null);
@@ -37,7 +32,7 @@
 	const unit3Tenants = $derived(tenants.filter((t) => t.unit === 'Unit 3 (10 pax) - up/down'));
 
 	function updateTenantField(tenantId: string, field: keyof Tenant, value: string | number) {
-		dispatch('updateTenant', { tenantId, field, value });
+		onupdateTenant?.({ detail: { tenantId, field, value } });
 	}
 
 	function getTenantCalculation(tenant: Tenant) {
@@ -126,7 +121,7 @@
 								type="text"
 								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-pink-300 rounded-lg"
 								value={tenant.name}
-								on:input={(e) => {
+								oninput={(e) => {
 									e.stopPropagation();
 									updateTenantField(tenant.id, 'name', e.currentTarget.value);
 								}}
@@ -143,7 +138,7 @@
 									value={tenant.payment}
 									min="0"
 									step="1000"
-									on:input={(e) => {
+									oninput={(e) => {
 										e.stopPropagation();
 										const value = parseFloat(e.currentTarget.value) || 0;
 										updateTenantField(tenant.id, 'payment', value);
@@ -152,7 +147,7 @@
 								<div class="spinner-buttons">
 									<button 
 										class="spinner-btn up" 
-										on:click={(e) => {
+										onclick={(e) => {
 											e.preventDefault();
 											e.stopPropagation();
 											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
@@ -165,7 +160,7 @@
 									</button>
 									<button 
 										class="spinner-btn down" 
-										on:click={(e) => {
+										onclick={(e) => {
 											e.preventDefault();
 											e.stopPropagation();
 											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
@@ -184,7 +179,7 @@
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-								on:input={(e) => {
+								oninput={(e) => {
 									e.stopPropagation();
 									updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
 								}}
@@ -223,7 +218,7 @@
 				/>
 			</div>
 			<button
-				on:click={(e) => {
+				onclick={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					addTenant('Unit 2 (6 pax) - studio type 2');
@@ -269,7 +264,7 @@
 								type="text"
 								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-violet-300 rounded-lg"
 								value={tenant.name}
-								on:input={(e) => {
+								oninput={(e) => {
 									e.stopPropagation();
 									updateTenantField(tenant.id, 'name', e.currentTarget.value);
 								}}
@@ -286,7 +281,7 @@
 									value={tenant.payment}
 									min="0"
 									step="1000"
-									on:input={(e) => {
+									oninput={(e) => {
 										e.stopPropagation();
 										const value = parseFloat(e.currentTarget.value) || 0;
 										updateTenantField(tenant.id, 'payment', value);
@@ -295,7 +290,7 @@
 								<div class="spinner-buttons">
 									<button 
 										class="spinner-btn up" 
-										on:click={(e) => {
+										onclick={(e) => {
 											e.preventDefault();
 											e.stopPropagation();
 											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
@@ -308,7 +303,7 @@
 									</button>
 									<button 
 										class="spinner-btn down" 
-										on:click={(e) => {
+										onclick={(e) => {
 											e.preventDefault();
 											e.stopPropagation();
 											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
@@ -327,7 +322,7 @@
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-								on:input={(e) => {
+								oninput={(e) => {
 									e.stopPropagation();
 									updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
 								}}
@@ -350,7 +345,7 @@
 						</td>
 						<td class="border border-violet-200 px-4 py-3">
 							<button
-								on:click={(e) => {
+								onclick={(e) => {
 									e.preventDefault();
 									e.stopPropagation();
 									handleRemoveTenant(tenant.id);
@@ -378,7 +373,7 @@
 				/>
 			</div>
 			<button
-				on:click={(e) => {
+				onclick={(e) => {
 					e.preventDefault();
 					e.stopPropagation();
 					handleAddTenant();
@@ -424,7 +419,7 @@
 								type="text"
 								class="table-input font-medium bg-transparent border-none p-0 focus:bg-white focus:border-cyan-300 rounded-lg"
 								value={tenant.name}
-								on:input={(e) => {
+								oninput={(e) => {
 									e.stopPropagation();
 									updateTenantField(tenant.id, 'name', e.currentTarget.value);
 								}}
@@ -441,7 +436,7 @@
 									value={tenant.payment}
 									min="0"
 									step="1000"
-									on:input={(e) => {
+									oninput={(e) => {
 										e.stopPropagation();
 										const value = parseFloat(e.currentTarget.value) || 0;
 										updateTenantField(tenant.id, 'payment', value);
@@ -450,7 +445,7 @@
 								<div class="spinner-buttons">
 									<button 
 										class="spinner-btn up" 
-										on:click={(e) => {
+										onclick={(e) => {
 											e.preventDefault();
 											e.stopPropagation();
 											handlePaymentChange(tenant.id, tenant.payment || 0, 1000);
@@ -463,7 +458,7 @@
 									</button>
 									<button 
 										class="spinner-btn down" 
-										on:click={(e) => {
+										onclick={(e) => {
 											e.preventDefault();
 											e.stopPropagation();
 											handlePaymentChange(tenant.id, tenant.payment || 0, -1000);
@@ -482,7 +477,7 @@
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-							on:input={(e) => {
+							oninput={(e) => {
 							e.stopPropagation();
 							updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
 						}}
@@ -505,7 +500,7 @@
 						</td>
 						<td class="border border-cyan-200 px-4 py-3">
 							<button
-								on:click={() => {
+								onclick={() => {
 							handleRemoveTenant(tenant.id);
 						}}
 								class="cursor-pointer bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
@@ -526,7 +521,7 @@
 		>
 			<span>Removed {undoTenant.name}</span>
 			<button
-				on:click={handleUndo}
+				onclick={handleUndo}
 				class="cursor-pointer bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-500 hover:to-indigo-500 px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 			>
 				Undo

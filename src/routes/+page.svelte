@@ -179,7 +179,7 @@
 				Mark All Paid
 			</button>
 		</div>
-		<TenantTable tenants={currentTenants} onupdateTenant={handleTenantUpdate} />
+		<TenantTable tenants={currentTenants} onupdateTenant={(e) => handleTenantUpdate(e)} />
 	</div>
 
 	<!-- Expenses -->

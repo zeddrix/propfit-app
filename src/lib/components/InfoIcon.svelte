@@ -17,6 +17,6 @@
 		class="inline-flex items-center justify-center ml-1 text-white/70 hover:text-white dark:text-gray-300 dark:hover:text-white focus:text-white focus:outline-none transition-colors cursor-help"
 		aria-label="Information"
 	>
-		<Info size={size} />
+		<Info {size} />
 	</button>
 </Tooltip>

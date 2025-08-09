@@ -58,7 +58,9 @@
 			<div class="flex items-center space-x-4">
 				<div class="flex-shrink-0">
 					<div class="flex items-center space-x-3">
-						<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg">
+						<div
+							class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg"
+						>
 							<span class="text-white font-bold text-lg">P</span>
 						</div>
 						<div>
@@ -86,7 +88,9 @@
 					aria-label="Open Settings"
 					title="Application Settings"
 				>
-					<Settings class="w-5 h-5 text-gray-600 dark:text-slate-300 group-hover:scale-110 transition-transform duration-200" />
+					<Settings
+						class="w-5 h-5 text-gray-600 dark:text-slate-300 group-hover:scale-110 transition-transform duration-200"
+					/>
 				</button>
 			</div>
 
@@ -110,7 +114,9 @@
 
 		<!-- Mobile menu with smooth animation -->
 		{#if mobileMenuOpen}
-			<div class="md:hidden border-t border-gray-200 dark:border-slate-700 pt-6 pb-8 animate-slideDown">
+			<div
+				class="md:hidden border-t border-gray-200 dark:border-slate-700 pt-6 pb-8 animate-slideDown"
+			>
 				<div class="space-y-6">
 					<!-- Mobile Settings -->
 					<div class="flex justify-center">
@@ -120,10 +126,12 @@
 							aria-label="Open Settings"
 							title="Application Settings"
 						>
-							<Settings class="w-5 h-5 text-gray-600 dark:text-slate-300 group-hover:scale-110 transition-transform duration-200" />
+							<Settings
+								class="w-5 h-5 text-gray-600 dark:text-slate-300 group-hover:scale-110 transition-transform duration-200"
+							/>
 						</button>
 					</div>
-					
+
 					<!-- Mobile Action Buttons -->
 					<div class="px-4">
 						<ActionButtons
@@ -137,7 +145,7 @@
 						/>
 					</div>
 				</div>
-				
+
 				<!-- Close button for mobile menu -->
 				<div class="mt-6 flex justify-center">
 					<button

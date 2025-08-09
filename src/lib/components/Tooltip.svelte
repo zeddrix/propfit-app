@@ -19,7 +19,8 @@
 
 	const arrowClasses = {
 		top: 'top-full left-1/2 transform -translate-x-1/2 border-t-gray-900 dark:border-t-gray-200',
-		bottom: 'bottom-full left-1/2 transform -translate-x-1/2 border-b-gray-900 dark:border-b-gray-200',
+		bottom:
+			'bottom-full left-1/2 transform -translate-x-1/2 border-b-gray-900 dark:border-b-gray-200',
 		left: 'left-full top-1/2 transform -translate-y-1/2 border-l-gray-900 dark:border-l-gray-200',
 		right: 'right-full top-1/2 transform -translate-y-1/2 border-r-gray-900 dark:border-r-gray-200'
 	};
@@ -42,7 +43,7 @@
 </script>
 
 <!-- Tooltip wrapper that wraps the target element -->
-<div 
+<div
 	class="relative inline-block"
 	onmouseenter={handleMouseEnter}
 	onmouseleave={handleMouseLeave}
@@ -57,7 +58,9 @@
 			bind:this={tooltipElement}
 			id="tooltip"
 			role="tooltip"
-			class="absolute z-[100] px-3 py-2 text-sm font-medium text-white bg-gray-900 dark:bg-gray-200 dark:text-gray-900 rounded-lg shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-200 {positionClasses[position]}"
+			class="absolute z-[100] px-3 py-2 text-sm font-medium text-white bg-gray-900 dark:bg-gray-200 dark:text-gray-900 rounded-lg shadow-lg whitespace-nowrap pointer-events-none transition-opacity duration-200 {positionClasses[
+				position
+			]}"
 		>
 			{content}
 			<!-- Arrow -->

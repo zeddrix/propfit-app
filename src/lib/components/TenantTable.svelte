@@ -19,7 +19,7 @@
 		buttonText: 'text-pink-600',
 		buttonHoverText: 'text-pink-800',
 		shadow: 'shadow-pink-100',
-		shadowHover: 'shadow-pink-200',
+		shadowHover: 'shadow-pink-200'
 	};
 
 	const unit2ColorScheme = {
@@ -36,7 +36,7 @@
 		buttonText: 'text-violet-600',
 		buttonHoverText: 'text-violet-800',
 		shadow: 'shadow-violet-100',
-		shadowHover: 'shadow-violet-200',
+		shadowHover: 'shadow-violet-200'
 	};
 
 	const unit3ColorScheme = {
@@ -53,7 +53,7 @@
 		buttonText: 'text-cyan-600',
 		buttonHoverText: 'text-cyan-800',
 		shadow: 'shadow-cyan-100',
-		shadowHover: 'shadow-cyan-200',
+		shadowHover: 'shadow-cyan-200'
 	};
 	import InfoIcon from './InfoIcon.svelte';
 
@@ -137,27 +137,21 @@
 			<h3 class="text-lg font-semibold text-gray-800">Unit 1 (2 pax) - studio type 1</h3>
 		</div>
 
-		<table class="w-full border-collapse border border-pink-200 rounded-xl overflow-hidden shadow-lg">
+		<table
+			class="w-full border-collapse border border-pink-200 rounded-xl overflow-hidden shadow-lg"
+		>
 			<thead>
 				<tr class="bg-gradient-to-r from-pink-300 to-rose-300 text-white">
-					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
-						Unit/Tenant
-					</th>
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold"> Unit/Tenant </th>
 					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Monthly Rent (₱)
 					</th>
 					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
 						Amount Paid (₱)
 					</th>
-					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
-						Payment Date
-					</th>
-					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
-						Balance (₱)
-					</th>
-					<th class="border border-pink-200 px-4 py-3 text-left font-semibold">
-						Status
-					</th>
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold"> Payment Date </th>
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold"> Balance (₱) </th>
+					<th class="border border-pink-200 px-4 py-3 text-left font-semibold"> Status </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -243,30 +237,22 @@
 			</button>
 		</div>
 
-		<table class="w-full border-collapse border border-violet-200 rounded-xl overflow-hidden shadow-lg">
+		<table
+			class="w-full border-collapse border border-violet-200 rounded-xl overflow-hidden shadow-lg"
+		>
 			<thead>
 				<tr class="bg-gradient-to-r from-violet-300 to-purple-300 text-white">
-					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
-						Unit/Tenant
-					</th>
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold"> Unit/Tenant </th>
 					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Monthly Rent (₱)
 					</th>
 					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
 						Amount Paid (₱)
 					</th>
-					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
-						Payment Date
-					</th>
-					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
-						Balance (₱)
-					</th>
-					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
-						Status
-					</th>
-					<th class="border border-violet-200 px-4 py-3 text-left font-semibold">
-						Actions
-					</th>
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold"> Payment Date </th>
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold"> Balance (₱) </th>
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold"> Status </th>
+					<th class="border border-violet-200 px-4 py-3 text-left font-semibold"> Actions </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -364,30 +350,22 @@
 			</button>
 		</div>
 
-		<table class="w-full border-collapse border border-cyan-200 rounded-xl overflow-hidden shadow-lg">
+		<table
+			class="w-full border-collapse border border-cyan-200 rounded-xl overflow-hidden shadow-lg"
+		>
 			<thead>
 				<tr class="bg-gradient-to-r from-cyan-300 to-teal-300 text-white">
-					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
-						Unit/Tenant
-					</th>
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold"> Unit/Tenant </th>
 					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Monthly Rent (₱)
 					</th>
 					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
 						Amount Paid (₱)
 					</th>
-					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
-						Payment Date
-					</th>
-					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
-						Balance (₱)
-					</th>
-					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
-						Status
-					</th>
-					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold">
-						Actions
-					</th>
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold"> Payment Date </th>
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold"> Balance (₱) </th>
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold"> Status </th>
+					<th class="border border-cyan-200 px-4 py-3 text-left font-semibold"> Actions </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -423,10 +401,10 @@
 								type="date"
 								class="table-input cursor-pointer"
 								value={tenant.paymentDate}
-							oninput={(e) => {
-							e.stopPropagation();
-							updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
-						}}
+								oninput={(e) => {
+									e.stopPropagation();
+									updateTenantField(tenant.id, 'paymentDate', e.currentTarget.value);
+								}}
 							/>
 						</td>
 						<td class="border border-cyan-200 px-4 py-3 text-right font-mono">
@@ -447,8 +425,8 @@
 						<td class="border border-cyan-200 px-4 py-3">
 							<button
 								onclick={() => {
-							handleRemoveTenant(tenant.id);
-						}}
+									handleRemoveTenant(tenant.id);
+								}}
 								class="cursor-pointer bg-gradient-to-r from-rose-400 to-pink-400 hover:from-rose-500 hover:to-pink-500 text-white px-3 py-1 rounded-lg text-sm transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-105"
 							>
 								Remove
@@ -579,12 +557,12 @@
 		.spinner-buttons {
 			right: 0.25rem;
 		}
-		
+
 		.spinner-btn {
 			width: 1.25rem;
 			height: 1rem;
 		}
-		
+
 		.spinner-btn svg {
 			width: 0.75rem;
 			height: 0.75rem;
@@ -593,8 +571,13 @@
 
 	/* Enhanced animations */
 	@keyframes gentle-bounce {
-		0%, 100% { transform: translateY(0); }
-		50% { transform: translateY(-2px); }
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-2px);
+		}
 	}
 
 	.table-input:focus {

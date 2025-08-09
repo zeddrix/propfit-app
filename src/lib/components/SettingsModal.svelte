@@ -106,13 +106,19 @@
 			role="document"
 		>
 			<!-- Modal Header -->
-			<div class="flex items-center justify-between px-8 py-6 border-b border-gray-200 dark:border-slate-600 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-600 rounded-t-2xl">
+			<div
+				class="flex items-center justify-between px-8 py-6 border-b border-gray-200 dark:border-slate-600 bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-700 dark:to-slate-600 rounded-t-2xl"
+			>
 				<div class="flex items-center gap-4">
-					<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+					<div
+						class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg"
+					>
 						<Settings class="w-5 h-5 text-white" />
 					</div>
 					<div>
-						<h2 id="settings-title" class="text-2xl font-bold text-gray-800 dark:text-white">Settings</h2>
+						<h2 id="settings-title" class="text-2xl font-bold text-gray-800 dark:text-white">
+							Settings
+						</h2>
 						<p class="text-sm text-gray-600 dark:text-slate-300">Manage your PropFit preferences</p>
 					</div>
 				</div>
@@ -128,9 +134,13 @@
 			<!-- Modal Body -->
 			<div class="p-8 space-y-8">
 				<!-- Export Section -->
-				<div class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 border border-green-100 dark:border-green-800/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+				<div
+					class="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 border border-green-100 dark:border-green-800/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+				>
 					<div class="flex items-center gap-4 mb-6">
-						<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg">
+						<div
+							class="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg"
+						>
 							<Download class="w-5 h-5 text-white" />
 						</div>
 						<div>
@@ -139,7 +149,9 @@
 						</div>
 					</div>
 					<div>
-						<h4 class="text-lg font-medium text-gray-800 dark:text-white mb-4">Export Current Month's Data</h4>
+						<h4 class="text-lg font-medium text-gray-800 dark:text-white mb-4">
+							Export Current Month's Data
+						</h4>
 						<div class="flex flex-wrap gap-4">
 							<button
 								onclick={handleExportPdf}
@@ -160,9 +172,13 @@
 				</div>
 
 				<!-- Data Management Section -->
-				<div class="bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-2xl p-6 border border-red-100 dark:border-red-800/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+				<div
+					class="bg-gradient-to-br from-red-50 to-rose-50 dark:from-red-900/20 dark:to-rose-900/20 rounded-2xl p-6 border border-red-100 dark:border-red-800/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+				>
 					<div class="flex items-center gap-4 mb-6">
-						<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center shadow-lg">
+						<div
+							class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 flex items-center justify-center shadow-lg"
+						>
 							<Trash2 class="w-5 h-5 text-white" />
 						</div>
 						<div>
@@ -172,10 +188,13 @@
 					</div>
 					<div>
 						<h4 class="text-lg font-medium text-gray-800 dark:text-white mb-4">Reset All Data</h4>
-						<div class="bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-4">
+						<div
+							class="bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-xl p-4 mb-4"
+						>
 							<p class="text-sm text-red-800 dark:text-red-300 flex items-start gap-2">
 								<span class="text-red-600 dark:text-red-400 font-bold">⚠️</span>
-								This will reset all tenant data, expenses, and settings back to their default values. This action cannot be undone.
+								This will reset all tenant data, expenses, and settings back to their default values.
+								This action cannot be undone.
 							</p>
 						</div>
 						<button
@@ -189,14 +208,20 @@
 				</div>
 
 				<!-- App Information -->
-				<div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-800/50 shadow-sm hover:shadow-md transition-shadow duration-300">
+				<div
+					class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-800/50 shadow-sm hover:shadow-md transition-shadow duration-300"
+				>
 					<div class="flex items-center gap-4 mb-6">
-						<div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
+						<div
+							class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg"
+						>
 							<Settings class="w-5 h-5 text-white" />
 						</div>
 						<div>
 							<h3 class="text-xl font-semibold text-gray-800 dark:text-white">App Information</h3>
-							<p class="text-sm text-gray-600 dark:text-slate-300">System details and version info</p>
+							<p class="text-sm text-gray-600 dark:text-slate-300">
+								System details and version info
+							</p>
 						</div>
 					</div>
 					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">

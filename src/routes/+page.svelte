@@ -42,16 +42,16 @@
 		event: CustomEvent<{ tenantId: string; field: keyof Tenant; value: string | number }>
 	) {
 		const { tenantId, field, value } = event.detail;
-		
+
 		// First update the tenant with the new value
 		tenants.update((tenantList) => {
-			let updatedList = tenantList.map((tenant) => 
+			let updatedList = tenantList.map((tenant) =>
 				tenant.id === tenantId ? { ...tenant, [field]: value } : tenant
 			);
 
 			// If payment was updated, update the status based on payment vs rent
 			if (field === 'payment') {
-				updatedList = updatedList.map(tenant => {
+				updatedList = updatedList.map((tenant) => {
 					if (tenant.id === tenantId) {
 						// Calculate the balance first
 						const payment = Number(value) || 0;
@@ -129,10 +129,16 @@
 <!-- Settings Modal -->
 <SettingsModal isOpen={isSettingsModalOpen} onclose={closeSettingsModal} />
 
-<div class="container mx-auto px-4 py-8 max-w-7xl bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen">
+<div
+	class="container mx-auto px-4 py-8 max-w-7xl bg-gradient-to-br from-blue-50 via-white to-purple-50 min-h-screen"
+>
 	<!-- Header -->
 	<div class="text-center mb-10">
-		<h1 class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">Rental Property Management</h1>
+		<h1
+			class="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-6"
+		>
+			Rental Property Management
+		</h1>
 
 		<div class="flex flex-col md:flex-row items-center justify-center gap-6 mb-8">
 			<div class="flex items-center gap-3 bg-white/60 backdrop-blur-sm rounded-xl p-4 shadow-md">
@@ -211,7 +217,9 @@
 			<div class="w-6 h-6 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400"></div>
 			Monthly Notes
 		</h2>
-		<div class="bg-gradient-to-br from-cyan-50 to-teal-50 p-8 rounded-2xl border-l-4 border-gradient-to-b from-cyan-400 to-teal-400 shadow-lg">
+		<div
+			class="bg-gradient-to-br from-cyan-50 to-teal-50 p-8 rounded-2xl border-l-4 border-gradient-to-b from-cyan-400 to-teal-400 shadow-lg"
+		>
 			<textarea
 				value={currentNotes}
 				oninput={handleNotesChange}

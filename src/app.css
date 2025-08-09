@@ -64,13 +64,17 @@
 	cursor: pointer;
 	border: none;
 	font-weight: 600;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-shadow:
+		0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .btn-primary:hover {
 	background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
 	transform: translateY(-2px);
-	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	box-shadow:
+		0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .btn-secondary {
@@ -82,13 +86,17 @@
 	cursor: pointer;
 	border: none;
 	font-weight: 600;
-	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	box-shadow:
+		0 4px 6px -1px rgba(0, 0, 0, 0.1),
+		0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .btn-secondary:hover {
 	background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
 	transform: translateY(-2px);
-	box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+	box-shadow:
+		0 10px 15px -3px rgba(0, 0, 0, 0.1),
+		0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 /* Enhanced table input styles */
@@ -98,7 +106,8 @@
 	font-size: theme('fontSize.sm');
 	border: 2px solid transparent;
 	border-radius: theme('borderRadius.xl');
-	background: linear-gradient(white, white) padding-box,
+	background:
+		linear-gradient(white, white) padding-box,
 		linear-gradient(135deg, #e2e8f0, #f1f5f9) border-box;
 	color: theme('colors.gray.800');
 	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -107,20 +116,23 @@
 
 .table-input:focus {
 	outline: none;
-	background: linear-gradient(white, white) padding-box,
+	background:
+		linear-gradient(white, white) padding-box,
 		linear-gradient(135deg, #60a5fa, #3b82f6) border-box;
 	transform: scale(1.02);
 	box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
 }
 
 .table-input:hover:not(:focus) {
-	background: linear-gradient(#fafafa, #fafafa) padding-box,
+	background:
+		linear-gradient(#fafafa, #fafafa) padding-box,
 		linear-gradient(135deg, #cbd5e1, #e2e8f0) border-box;
 }
 
 /* Beautiful animations */
 @keyframes gentle-float {
-	0%, 100% {
+	0%,
+	100% {
 		transform: translateY(0px);
 	}
 	50% {
@@ -129,7 +141,8 @@
 }
 
 @keyframes pulse-subtle {
-	0%, 100% {
+	0%,
+	100% {
 		opacity: 1;
 	}
 	50% {
@@ -138,7 +151,8 @@
 }
 
 @keyframes gradient-shift {
-	0%, 100% {
+	0%,
+	100% {
 		background-position: 0% 50%;
 	}
 	50% {
@@ -166,7 +180,7 @@
 	backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: theme('borderRadius.2xl');
-	box-shadow: 
+	box-shadow:
 		0 20px 25px -5px rgba(0, 0, 0, 0.1),
 		0 10px 10px -5px rgba(0, 0, 0, 0.04),
 		0 0 0 1px rgba(255, 255, 255, 0.1) inset;
@@ -175,7 +189,7 @@
 
 .card-elevated:hover {
 	transform: translateY(-4px);
-	box-shadow: 
+	box-shadow:
 		0 25px 50px -12px rgba(0, 0, 0, 0.15),
 		0 20px 25px -5px rgba(0, 0, 0, 0.1),
 		0 0 0 1px rgba(255, 255, 255, 0.2) inset;
@@ -196,15 +210,15 @@
 }
 
 /* Custom checkbox and radio styles */
-input[type="checkbox"],
-input[type="radio"] {
+input[type='checkbox'],
+input[type='radio'] {
 	cursor: pointer;
 	transform: scale(1.1);
 	transition: transform 0.2s ease;
 }
 
-input[type="checkbox"]:hover,
-input[type="radio"]:hover {
+input[type='checkbox']:hover,
+input[type='radio']:hover {
 	transform: scale(1.2);
 }
 

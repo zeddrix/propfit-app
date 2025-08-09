@@ -14,11 +14,14 @@
 </script>
 
 <div class="overflow-x-auto">
-	<table class="w-full border-collapse border border-purple-200 rounded-xl overflow-hidden shadow-lg">
+	<table
+		class="w-full border-collapse border border-purple-200 rounded-xl overflow-hidden shadow-lg"
+	>
 		<thead>
 			<tr class="bg-gradient-to-r from-purple-300 to-indigo-300">
-				<th class="border border-purple-200 px-6 py-4 text-left text-white font-semibold" colspan="4"
-					>Shareholder Distribution</th
+				<th
+					class="border border-purple-200 px-6 py-4 text-left text-white font-semibold"
+					colspan="4">Shareholder Distribution</th
 				>
 			</tr>
 			<tr class="bg-gradient-to-r from-purple-100 to-indigo-100">
@@ -37,7 +40,11 @@
 				<th class="border border-purple-200 px-6 py-3 text-right text-purple-800 font-semibold">
 					<div class="flex items-center justify-end">
 						Distribution Amount (₱)
-						<InfoIcon content="Share of net income based on ownership percentage" position="bottom" size={14} />
+						<InfoIcon
+							content="Share of net income based on ownership percentage"
+							position="bottom"
+							size={14}
+						/>
 					</div>
 				</th>
 				<th class="border border-purple-200 px-6 py-3 text-center text-purple-800 font-semibold">
